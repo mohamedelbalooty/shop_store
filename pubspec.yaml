@@ -1,0 +1,52 @@
+name: shop_store
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  get: ^4.6.1
+  get_storage: ^2.0.3
+  dio: ^4.0.4
+  toast: ^0.1.5
+  firebase_core: ^1.11.0
+  firebase_auth: ^3.3.4
+  google_sign_in: ^5.2.3
+#  google_fonts: ^2.2.0
+  shimmer: ^2.0.0
+  flutter_spinkit: ^5.1.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+     - family: Cairo
+       fonts:
+         - asset: assets/fonts/Cairo-Regular.ttf
+     - family: Redressed-Regular
+       fonts:
+         - asset: assets/fonts/Redressed-Regular.ttf
+     - family: IconBroken
+       fonts:
+         - asset: assets/icons/icons.ttf

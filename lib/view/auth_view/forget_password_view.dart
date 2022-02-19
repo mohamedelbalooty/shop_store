@@ -39,7 +39,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                 child: Form(
                   key: _globalKey,
                   child: Padding(
-                    padding: symmetricHorizontalPadding1(),
+                    padding: symmetricHorizontalPadding2(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,10 +59,10 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                                 ),
                                 child: const Center(
                                     child: Icon(
-                                      Icons.close,
-                                      color: mainLightColor,
-                                      size: 30.0,
-                                    )),
+                                  Icons.close,
+                                  color: mainLightColor,
+                                  size: 30.0,
+                                )),
                               ),
                             ),
                           ],
@@ -81,7 +81,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                         ),
                         verticalSpace3(),
                         BuildUnderlinedTextFormField(
-                          textFieldKey: UniqueKey(),
                           hint: 'Email',
                           controller: _email,
                           validate: (String? value) {

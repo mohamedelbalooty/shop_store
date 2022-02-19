@@ -27,7 +27,6 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          alignment: Alignment.bottomCenter,
           children: [
             const BuildBackgroundUtil(),
             Container(
@@ -40,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
                 child: Form(
                   key: _globalKey,
                   child: Padding(
-                    padding: symmetricHorizontalPadding1(),
+                    padding: symmetricHorizontalPadding2(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +47,6 @@ class _LoginViewState extends State<LoginView> {
                         SizedBox(height: isPortrait ? 100 : 20),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
-                          textFieldKey: UniqueKey(),
                           hint: 'Email',
                           controller: _email,
                           validate: (String? value) {
@@ -156,13 +154,13 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            BuildAuthQuestionWidget(
-              question: 'Don\'t have an account?',
-              buttonText: 'Signup'.toUpperCase(),
-              onClick: () => Get.toNamed(RoutesPath.signupView),
-            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BuildAuthQuestionWidget(
+        question: 'Don\'t have an account?',
+        buttonText: 'Signup'.toUpperCase(),
+        onClick: () => Get.toNamed(RoutesPath.signupView),
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:shop_store/utils/colors.dart';
 import '../app_components.dart';
 
 class BuildUnderlinedTextFormField extends StatelessWidget {
-  final Key? textFieldKey;
   final String hint;
   final TextEditingController controller;
   final bool isPassword;
@@ -14,7 +13,6 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
 
   const BuildUnderlinedTextFormField(
       {Key? key,
-         this.textFieldKey,
         required this.hint,
         required this.controller,
         required this.validate,
@@ -24,20 +22,19 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      key: textFieldKey,
       validator: validate,
       obscureText: isPassword,
-      cursorColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
-      style: TextStyle(
-        color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+      cursorColor: mainLightColor,
+      style: const TextStyle(
+        color: secondLightColor,
         fontSize: 16.0,
         fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: mainLightColor, fontSize: 18.0),
-        errorStyle: TextStyle(
-          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+        errorStyle: const TextStyle(
+          color: secondLightColor,
           fontSize: 14.0,
           fontWeight: FontWeight.w500,
         ),
@@ -50,8 +47,8 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
     );
   }
 
-  UnderlineInputBorder _underlineBorder() => UnderlineInputBorder(
-    borderSide: BorderSide(width: 2.0, color: Get.isDarkMode ? mainDarkColor : mainLightColor),
+  UnderlineInputBorder _underlineBorder() => const UnderlineInputBorder(
+    borderSide: BorderSide(width: 2.0, color: mainLightColor),
   );
 }
 

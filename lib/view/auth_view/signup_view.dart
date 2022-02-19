@@ -28,7 +28,6 @@ class _SignUpViewState extends State<SignUpView> {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          alignment: Alignment.bottomCenter,
           children: [
             const BuildBackgroundUtil(),
             Container(
@@ -41,7 +40,7 @@ class _SignUpViewState extends State<SignUpView> {
                 child: Form(
                   key: _globalKey,
                   child: Padding(
-                    padding: symmetricHorizontalPadding1(),
+                    padding: symmetricHorizontalPadding2(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +48,6 @@ class _SignUpViewState extends State<SignUpView> {
                         SizedBox(height: isPortrait ? 100 : 20),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
-                          textFieldKey: UniqueKey(),
                           hint: 'Username',
                           controller: _userName,
                           validate: (String? value) {
@@ -64,7 +62,6 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                         verticalSpace3(),
                         BuildUnderlinedTextFormField(
-                          textFieldKey: UniqueKey(),
                           hint: 'Email',
                           controller: _email,
                           validate: (String? value) {
@@ -130,13 +127,14 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
             ),
-            BuildAuthQuestionWidget(
-              question: 'Already have an account?',
-              buttonText: 'Login'.toUpperCase(),
-              onClick: () => Get.toNamed(RoutesPath.loginView),
-            ),
+
           ],
         ),
+      ),
+      bottomNavigationBar: BuildAuthQuestionWidget(
+        question: 'Already have an account?',
+        buttonText: 'Login'.toUpperCase(),
+        onClick: () => Get.toNamed(RoutesPath.loginView),
       ),
     );
   }

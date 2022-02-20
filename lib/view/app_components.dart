@@ -192,7 +192,10 @@ class BuildTextButtonUtil extends StatelessWidget {
 class BuildImageButtonUtil extends StatelessWidget {
   final String image;
   final Function() onClick;
-  const BuildImageButtonUtil({Key? key, required this.image, required this.onClick}) : super(key: key);
+
+  const BuildImageButtonUtil(
+      {Key? key, required this.image, required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -262,4 +265,33 @@ class BuildLogoUtil extends StatelessWidget {
       ),
     );
   }
+}
+
+class BuildCircularLoadingUtil extends StatelessWidget {
+  const BuildCircularLoadingUtil({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CircularProgressIndicator.adaptive(
+      valueColor: AlwaysStoppedAnimation<Color>(
+          Get.isDarkMode
+              ? secondDarkColor
+              : secondLightColor),
+    );
+  }
+}
+
+SnackbarController showSnackBar(
+    {required String title, required String message, SnackPosition? position}) {
+  return Get.snackbar(
+    title,
+    message,
+    snackPosition: position,
+    backgroundColor: mainLightColor,
+    borderRadius: 5.0,
+    padding: symmetricHorizontalPadding1(),
+    margin: const EdgeInsets.all(10),
+    duration: const Duration(seconds: 2),
+    colorText: Get.isDarkMode ? secondDarkColor : secondLightColor,
+  );
 }

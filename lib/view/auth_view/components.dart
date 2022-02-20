@@ -22,6 +22,7 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: validate,
       obscureText: isPassword,
       cursorColor: mainLightColor,

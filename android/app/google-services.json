@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "672664601517",
+    "project_id": "mini-store-adfce",
+    "storage_bucket": "mini-store-adfce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672664601517:android:98f7cf8f97157d66b15724",
+        "android_client_info": {
+          "package_name": "com.mohamedElbalooty.shop_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672664601517-bhi7nnajmcem33hikctenbpfnmj1ee35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mohamedElbalooty.shop_store",
+            "certificate_hash": "8ff3a4b87965f911ce6a8cd5a5a8261573c61c8e"
+          }
+        },
+        {
+          "client_id": "672664601517-ulhleeb5admqpmm5939ksf2sm60vcldv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCyqbRc7TNjZs09u7dQIRYQCEc5zrfaR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672664601517-ulhleeb5admqpmm5939ksf2sm60vcldv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

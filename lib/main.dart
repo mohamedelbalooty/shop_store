@@ -1,9 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/utils/routes/routes.dart';
 import 'utils/colors.dart';
 
-void main() => runApp(const ShopStore());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const ShopStore());
+}
 
 class ShopStore extends StatelessWidget {
   const ShopStore({Key? key}) : super(key: key);

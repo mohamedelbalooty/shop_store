@@ -22,73 +22,75 @@ class WelcomeView extends StatelessWidget {
               decoration: BoxDecoration(
                 color: blackColor.withOpacity(0.2),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: isPortrait ? 200 : 30),
-                    Container(
-                      height: 60.0,
-                      width: 160.0,
-                      decoration: BoxDecoration(
-                        color: whiteColor.withOpacity(0.1),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(5.0),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: isPortrait ? 200 : 30),
+                      Container(
+                        height: 60.0,
+                        width: 160.0,
+                        decoration: BoxDecoration(
+                          color: whiteColor.withOpacity(0.1),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
                         ),
-                      ),
-                      child: const Center(
-                        child: TextUtil(
-                          text: 'Wellcome',
-                          fontSize: 35.0,
-                          color: whiteColor,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Redressed-Regular',
-                        ),
-                      ),
-                    ),
-                    verticalSpace2(),
-                    const BuildLogoUtil(),
-                    SizedBox(height: isPortrait ? 150 : 50),
-                    ElevatedButton(
-                      child: const TextUtil(
-                        text: 'Get Started',
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 5.0)),
-                        backgroundColor: MaterialStateProperty.all(mainLightColor),
-                        shape:
-                            MaterialStateProperty.all<BeveledRectangleBorder>(
-                          BeveledRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                        child: const Center(
+                          child: TextUtil(
+                            text: 'Wellcome',
+                            fontSize: 35.0,
+                            color: whiteColor,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Redressed-Regular',
                           ),
                         ),
                       ),
-                      onPressed: () => Get.toNamed(RoutesPath.loginView),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const TextUtil(
-                          text: 'Don\'t have an account?',
+                      verticalSpace2(),
+                      const BuildLogoUtil(),
+                      SizedBox(height: isPortrait ? 150 : 50),
+                      ElevatedButton(
+                        child: const TextUtil(
+                          text: 'Get Started',
                           fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                         ),
-                        horizontalSpace1(),
-                        BuildTextButtonUtil(
-                          text: 'SignUp',
-                          fontSize: 20.0,
-                          decoration: TextDecoration.underline,
-                          onClick: () => Get.offNamed(RoutesPath.signupView),
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 5.0)),
+                          backgroundColor: MaterialStateProperty.all(mainLightColor),
+                          shape:
+                              MaterialStateProperty.all<BeveledRectangleBorder>(
+                            BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                    verticalSpace2(),
-                  ],
+                        onPressed: () => Get.offNamed(RoutesPath.loginView),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const TextUtil(
+                            text: 'Don\'t have an account?',
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          horizontalSpace1(),
+                          BuildTextButtonUtil(
+                            text: 'SignUp',
+                            fontSize: 20.0,
+                            decoration: TextDecoration.underline,
+                            onClick: () => Get.offNamed(RoutesPath.signupView),
+                          ),
+                        ],
+                      ),
+                      verticalSpace2(),
+                    ],
+                  ),
                 ),
               ),
             ),

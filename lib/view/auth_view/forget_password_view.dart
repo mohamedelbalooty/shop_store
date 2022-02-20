@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/validation_strings.dart';
-
 import '../app_components.dart';
 import 'components.dart';
 
@@ -17,7 +16,7 @@ class ForgetPasswordView extends StatefulWidget {
 class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
-  final controller = Get.find<AuthController>();
+  final _controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,23 +93,30 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                           },
                         ),
                         verticalSpace5(),
-                        BuildElevatedButtonUtil(
-                          child: TextUtil(
-                            text: 'Recover',
-                            fontSize: 20.0,
-                            color: Get.isDarkMode
-                                ? secondDarkColor
-                                : secondLightColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          color:
-                              Get.isDarkMode ? mainDarkColor : mainLightColor,
-                          radius: 0.0,
-                          size: Size(infinityWidth, 50.0),
-                          onClick: () {
-                            if (_globalKey.currentState!.validate()) {}
-                          },
-                        ),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return BuildElevatedButtonUtil(
+                            child: !_controller.isLoading
+                                ? TextUtil(
+                                    text: 'Send'.toUpperCase(),
+                                    fontSize: 20.0,
+                                    color: whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                : const BuildCircularLoadingUtil(),
+
+                            color:
+                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                            radius: 0.0,
+                            size: Size(infinityWidth, 50.0),
+                            onClick: () async {
+                              if (_globalKey.currentState!.validate()) {
+                                await _controller.forgetPassword(
+                                    email: _email.text.trim());
+                                FocusScope.of(context).unfocus();
+                              }
+                            },
+                          );
+                        }),
                         verticalSpace3(),
                       ],
                     ),

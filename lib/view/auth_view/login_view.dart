@@ -18,7 +18,7 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  final controller = Get.find<AuthController>();
+  final _controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +61,21 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         verticalSpace3(),
                         GetBuilder<AuthController>(
-                          builder: (context) {
+                          builder: (_) {
                             return BuildUnderlinedTextFormField(
                               hint: 'Password',
                               controller: _password,
-                              isPassword: !controller.isVisible,
+                              isPassword: !_controller.isVisible,
                               suffixWidget: IconButton(
                                 padding: const EdgeInsets.all(0),
                                 constraints: const BoxConstraints(),
-                                icon: controller.isVisible == true
+                                icon: _controller.isVisible == true
                                     ? const Icon(Icons.visibility_off)
                                     : const Icon(Icons.visibility),
                                 color: Get.isDarkMode
                                     ? mainDarkColor
                                     : mainLightColor,
-                                onPressed: () => controller.changeVisible(),
+                                onPressed: () => _controller.changeVisible(),
                               ),
                               validate: (String? value) {
                                 if (value == null || value.isEmpty) {
@@ -102,24 +102,31 @@ class _LoginViewState extends State<LoginView> {
                           ],
                         ),
                         verticalSpace5(),
-                        BuildElevatedButtonUtil(
-                          child: TextUtil(
-                            text: 'Login',
-                            fontSize: 20.0,
-                            color: Get.isDarkMode
-                                ? secondDarkColor
-                                : secondLightColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          color:
-                              Get.isDarkMode ? mainDarkColor : mainLightColor,
-                          radius: 0.0,
-                          size: Size(infinityWidth, 50.0),
-                          onClick: () {
-                            if (_globalKey.currentState!.validate()) {}
-                          },
-                        ),
-                        verticalSpace3(),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return BuildElevatedButtonUtil(
+                            child: !_controller.isLoading
+                                ? TextUtil(
+                                    text: 'Log in'.toUpperCase(),
+                                    fontSize: 20.0,
+                                    color: whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                : const BuildCircularLoadingUtil(),
+                            color:
+                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                            radius: 0.0,
+                            size: Size(infinityWidth, 50.0),
+                            onClick: () async {
+                              if (_globalKey.currentState!.validate()) {
+                                await _controller.login(
+                                    email: _email.text.trim(),
+                                    password: _password.text);
+                                FocusScope.of(context).unfocus();
+                              }
+                            },
+                          );
+                        }),
+                        verticalSpace5(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextUtil(
@@ -147,7 +154,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 50),
                       ],
                     ),
                   ),
@@ -172,3 +179,5 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 }
+
+

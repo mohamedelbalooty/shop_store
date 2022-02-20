@@ -75,7 +75,7 @@ class _SignUpViewState extends State<SignUpView> {
                           },
                         ),
                         verticalSpace3(),
-                        GetBuilder<AuthController>(builder: (context) {
+                        GetBuilder<AuthController>(builder: (_) {
                           return BuildUnderlinedTextFormField(
                             hint: 'Password',
                             controller: _password,
@@ -103,23 +103,33 @@ class _SignUpViewState extends State<SignUpView> {
                         }),
                         BuildCheckTermsWidget(),
                         verticalSpace5(),
-                        BuildElevatedButtonUtil(
-                          child: TextUtil(
-                            text: 'Signup',
-                            color: Get.isDarkMode
-                                ? secondDarkColor
-                                : secondLightColor,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          color:
-                              Get.isDarkMode ? mainDarkColor : mainLightColor,
-                          radius: 0.0,
-                          size: Size(infinityWidth, 50.0),
-                          onClick: () {
-                            if (_globalKey.currentState!.validate()) {}
-                          },
-                        ),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return BuildElevatedButtonUtil(
+                            child: !_controller.isLoading
+                                ? TextUtil(
+                                    text: 'Sign up'.toUpperCase(),
+                                    color: Get.isDarkMode
+                                        ? secondDarkColor
+                                        : secondLightColor,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                : const BuildCircularLoadingUtil(),
+                            color:
+                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                            radius: 0.0,
+                            size: Size(infinityWidth, 50.0),
+                            onClick: () async {
+                              if (_globalKey.currentState!.validate()) {
+                                await _controller.signup(
+                                    username: _userName.text.trim(),
+                                    email: _email.text.trim(),
+                                    password: _password.text);
+                                FocusScope.of(context).unfocus();
+                              }
+                            },
+                          );
+                        }),
                         const SizedBox(height: 60),
                       ],
                     ),
@@ -127,7 +137,6 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

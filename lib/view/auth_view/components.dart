@@ -67,7 +67,8 @@ class BuildAuthQuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppBar().preferredSize.height,
+      // height: AppBar().preferredSize.height,
+      height: kBottomNavigationBarHeight,
       width: infinityWidth,
       color: Get.isDarkMode ? mainDarkColor : mainLightColor,
       child: Row(

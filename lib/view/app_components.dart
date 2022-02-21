@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/utils/colors.dart';
 
@@ -274,9 +276,7 @@ class BuildCircularLoadingUtil extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularProgressIndicator.adaptive(
       valueColor: AlwaysStoppedAnimation<Color>(
-          Get.isDarkMode
-              ? secondDarkColor
-              : secondLightColor),
+          Get.isDarkMode ? secondDarkColor : secondLightColor),
     );
   }
 }
@@ -294,4 +294,40 @@ SnackbarController showSnackBar(
     duration: const Duration(seconds: 2),
     colorText: Get.isDarkMode ? secondDarkColor : secondLightColor,
   );
+}
+
+Widget x() {
+  return CachedNetworkImage(
+    imageUrl: "http://via.placeholder.com/350x150",
+    placeholder: (context, url) => CircularProgressIndicator(),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}
+
+class BuildNetworkImageUtil extends StatelessWidget {
+  final String image;
+  final double? height, width;
+
+  const BuildNetworkImageUtil(
+      {Key? key,
+      required this.image,
+        this.height,
+       this.width})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      height: height,
+      width: width,
+      imageUrl: image,
+      fit: BoxFit.fill,
+      placeholder: (context, url) => const SpinKitThreeBounce(
+        color: Colors.pink,
+        size: 30.0,
+      ),
+      errorWidget: (context, url, error) =>
+          const Icon(Icons.error, color: Colors.red),
+    );
+  }
 }

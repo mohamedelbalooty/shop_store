@@ -66,7 +66,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                             ),
                           ],
                         ),
-                        SizedBox(height: isPortrait ? 30 : 20),
+                        SizedBox(height: isPortrait ? 55 : 20),
                         const BuildLogoUtil(),
                         verticalSpace3(),
                         const Text(
@@ -103,7 +103,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                                     fontWeight: FontWeight.bold,
                                   )
                                 : const BuildCircularLoadingUtil(),
-
                             color:
                                 Get.isDarkMode ? mainDarkColor : mainLightColor,
                             radius: 0.0,

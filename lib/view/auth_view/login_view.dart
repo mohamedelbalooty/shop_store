@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -44,7 +45,7 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: isPortrait ? 100 : 20),
+                        SizedBox(height: isPortrait ? 100.h : 20.h),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
                           hint: 'Email',
@@ -93,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                           children: [
                             BuildTextButtonUtil(
                                 text: 'Forget your password!',
-                                fontSize: 16.0,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
                                 padding: EdgeInsets.zero,
@@ -107,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
                             child: !_controller.isLoading
                                 ? TextUtil(
                                     text: 'Log in'.toUpperCase(),
-                                    fontSize: 20.0,
+                                    fontSize: 20.sp,
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
@@ -115,7 +116,7 @@ class _LoginViewState extends State<LoginView> {
                             color:
                                 Get.isDarkMode ? mainDarkColor : mainLightColor,
                             radius: 0.0,
-                            size: Size(infinityWidth, 50.0),
+                            size: Size(infinityWidth, 50.h),
                             onClick: () async {
                               if (_globalKey.currentState!.validate()) {
                                 await _controller.login(
@@ -134,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                             color: Get.isDarkMode
                                 ? secondDarkColor
                                 : secondLightColor,
-                            fontSize: 16.0,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.normal,
                             height: 1.0,
                           ),
@@ -154,7 +155,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 50),
+                        SizedBox(height: 50.h),
                       ],
                     ),
                   ),
@@ -179,5 +180,3 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 }
-
-

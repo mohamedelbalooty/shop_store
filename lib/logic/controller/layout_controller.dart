@@ -11,21 +11,29 @@ class LayoutController extends GetxController {
 
   final unselectedItemColor = Colors.white54;
 
-  final selectedBgColor = Get.isDarkMode ? mainDarkColor : mainLightColor;
-
   final unselectedBgColor = secondaryColor;
 
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedScreen = 0.obs;
+  int selectedBanner = 0;
 
   void onItemTapped(int index) {
-    selectedIndex.value = index;
+    selectedScreen.value = index;
   }
 
-  Color getBgColor(int index) =>
-      selectedIndex.value == index ? selectedBgColor : unselectedBgColor;
+  void onBannerChanged(int index) {
+    selectedBanner = index;
+    update();
+  }
+
+  Color getBgColor(int index) {
+    if (Get.isDarkMode) {
+      return selectedScreen.value == index ? mainDarkColor : secondDarkColor;
+    }
+    return selectedScreen.value == index ? mainLightColor : unselectedBgColor;
+  }
 
   Color getItemColor(int index) =>
-      selectedIndex.value == index ? selectedItemColor : unselectedItemColor;
+      selectedScreen.value == index ? whiteColor : unselectedItemColor;
 
   RxList<Widget> screens = <Widget>[
     const HomeView(),

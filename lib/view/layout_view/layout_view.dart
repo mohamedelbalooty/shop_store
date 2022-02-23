@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/layout_controller.dart';
+import 'package:shop_store/logic/controller/theme_controller.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/view/app_components.dart';
 import 'components.dart';
@@ -19,15 +20,21 @@ class _LayoutViewState extends State<LayoutView> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        backgroundColor: Get.isDarkMode ? secondDarkColor : secondLightColor,
+        backgroundColor: context.theme.backgroundColor,
         appBar: AppBar(
           title: TextUtil(
-            text: _controller.appBarTitles[_controller.selectedIndex.value],
+            text: _controller.appBarTitles[_controller.selectedScreen.value],
             fontSize: 20.0,
             color: Get.isDarkMode ? secondLightColor : secondDarkColor,
             fontWeight: FontWeight.bold,
           ),
           backgroundColor: Get.isDarkMode ? secondDarkColor : secondLightColor,
+          leading: IconButton(
+            icon: Icon(Get.isDarkMode ? Icons.brightness_2_outlined : Icons.brightness_2, color: Get.isDarkMode ? mainDarkColor : mainLightColor,),
+            onPressed: (){
+              ThemeController().changeTheme();
+            },
+          ),
           actions: const [
             BuildAppBarCartButton(
               cartNum: '1',
@@ -35,7 +42,7 @@ class _LayoutViewState extends State<LayoutView> {
           ],
         ),
         body: IndexedStack(
-          index: _controller.selectedIndex.value,
+          index: _controller.selectedScreen.value,
           children: _controller.screens,
         ),
         bottomNavigationBar: BuildBottomNavBarWidget(

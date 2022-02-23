@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/routes/routes.dart';
@@ -28,20 +29,20 @@ class WelcomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: isPortrait ? 200 : 30),
+                      SizedBox(height: isPortrait ? 200.h : 30.h),
                       Container(
-                        height: 60.0,
-                        width: 160.0,
+                        height: 60.h,
+                        width: 160.w,
                         decoration: BoxDecoration(
                           color: whiteColor.withOpacity(0.1),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
                           ),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: TextUtil(
                             text: 'Wellcome',
-                            fontSize: 35.0,
+                            fontSize: 35.sp,
                             color: whiteColor,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Redressed-Regular',
@@ -52,16 +53,17 @@ class WelcomeView extends StatelessWidget {
                       const BuildLogoUtil(),
                       SizedBox(height: isPortrait ? 150 : 50),
                       ElevatedButton(
-                        child: const TextUtil(
+                        child: TextUtil(
                           text: 'Get Started',
-                          fontSize: 20.0,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 5.0)),
-                          backgroundColor: MaterialStateProperty.all(mainLightColor),
+                              EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 5.h)),
+                          backgroundColor:
+                              MaterialStateProperty.all(mainLightColor),
                           shape:
                               MaterialStateProperty.all<BeveledRectangleBorder>(
                             BeveledRectangleBorder(
@@ -74,15 +76,15 @@ class WelcomeView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const TextUtil(
+                          TextUtil(
                             text: 'Don\'t have an account?',
-                            fontSize: 20.0,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.normal,
                           ),
                           horizontalSpace1(),
                           BuildTextButtonUtil(
                             text: 'SignUp',
-                            fontSize: 20.0,
+                            fontSize: 20.sp,
                             decoration: TextDecoration.underline,
                             onClick: () => Get.offNamed(RoutesPath.signupView),
                           ),

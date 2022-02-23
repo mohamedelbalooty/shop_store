@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -45,7 +46,7 @@ class _SignUpViewState extends State<SignUpView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: isPortrait ? 100 : 20),
+                        SizedBox(height: isPortrait ? 100.h : 20.h),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
                           hint: 'Username',
@@ -111,14 +112,14 @@ class _SignUpViewState extends State<SignUpView> {
                                     color: Get.isDarkMode
                                         ? secondDarkColor
                                         : secondLightColor,
-                                    fontSize: 20.0,
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.bold,
                                   )
                                 : const BuildCircularLoadingUtil(),
                             color:
                                 Get.isDarkMode ? mainDarkColor : mainLightColor,
                             radius: 0.0,
-                            size: Size(infinityWidth, 50.0),
+                            size: Size(infinityWidth, 50.h),
                             onClick: () async {
                               if (_globalKey.currentState!.validate()) {
                                 await _controller.signup(
@@ -130,7 +131,7 @@ class _SignUpViewState extends State<SignUpView> {
                             },
                           );
                         }),
-                        const SizedBox(height: 60),
+                        SizedBox(height: 50.h),
                       ],
                     ),
                   ),

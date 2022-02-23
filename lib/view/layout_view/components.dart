@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/layout_controller.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -81,7 +82,7 @@ class BuildBottomNavBarWidget extends StatelessWidget {
             ),
             label: ''),
       ],
-      currentIndex: controller.selectedIndex.value,
+      currentIndex: controller.selectedScreen.value,
       selectedItemColor: controller.selectedItemColor,
       unselectedItemColor: controller.unselectedItemColor,
     );
@@ -96,40 +97,43 @@ class BuildAppBarCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: SizedBox(
-        width: 50.0,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const Icon(
-              IconBroken.Bag_2,
-              color: secondaryColor,
-              size: 32.0,
-            ),
-            PositionedDirectional(
-              top: 12,
-              end: 26,
-              child: Container(
-                height: 20.0,
-                width: 20.0,
-                decoration: BoxDecoration(
-                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: TextUtil(
-                    text: cartNum,
-                    color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
+    return Material(
+      color: context.theme.backgroundColor,
+      child: InkWell(
+        onTap: () {},
+        child: SizedBox(
+          width: 50.w,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Icon(
+                IconBroken.Bag_2,
+                color: Get.isDarkMode ? mainDarkColor : secondaryColor,
+                size: 32.0,
+              ),
+              PositionedDirectional(
+                top: 12.h,
+                end: 26.h,
+                child: Container(
+                  height: 20.r,
+                  width: 20.r,
+                  decoration: BoxDecoration(
+                    color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: TextUtil(
+                      text: cartNum,
+                      color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.bold,
+                      height: 1.5,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

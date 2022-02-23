@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -7,25 +8,25 @@ import 'package:shop_store/utils/colors.dart';
 double infinityHeight = double.infinity;
 double infinityWidth = double.infinity;
 
-SizedBox verticalSpace1() => const SizedBox(height: 5);
+SizedBox verticalSpace1() => SizedBox(height: 5.h);
 
-SizedBox verticalSpace2() => const SizedBox(height: 10);
+SizedBox verticalSpace2() => SizedBox(height: 10.h);
 
-SizedBox verticalSpace3() => const SizedBox(height: 15);
+SizedBox verticalSpace3() => SizedBox(height: 15.h);
 
-SizedBox verticalSpace4() => const SizedBox(height: 20);
+SizedBox verticalSpace4() => SizedBox(height: 20.h);
 
-SizedBox verticalSpace5() => const SizedBox(height: 30);
+SizedBox verticalSpace5() => SizedBox(height: 30.h);
 
-SizedBox horizontalSpace1() => const SizedBox(width: 5);
+SizedBox horizontalSpace1() => SizedBox(width: 5.w);
 
-SizedBox horizontalSpace2() => const SizedBox(width: 10);
+SizedBox horizontalSpace2() => SizedBox(width: 10.w);
 
-SizedBox horizontalSpace3() => const SizedBox(width: 15);
+SizedBox horizontalSpace3() => SizedBox(width: 15.w);
 
-SizedBox horizontalSpace4() => const SizedBox(width: 20);
+SizedBox horizontalSpace4() => SizedBox(width: 20.w);
 
-SizedBox horizontalSpace5() => const SizedBox(width: 30);
+SizedBox horizontalSpace5() => SizedBox(width: 30.w);
 
 EdgeInsets padding1() => const EdgeInsets.all(5);
 
@@ -34,16 +35,16 @@ EdgeInsets padding2() => const EdgeInsets.all(10);
 EdgeInsets padding3() => const EdgeInsets.all(20);
 
 EdgeInsets symmetricVerticalPadding1() =>
-    const EdgeInsets.symmetric(vertical: 10);
+    EdgeInsets.symmetric(vertical: 10.h);
 
 EdgeInsets symmetricVerticalPadding2() =>
-    const EdgeInsets.symmetric(vertical: 15);
+    EdgeInsets.symmetric(vertical: 15.h);
 
 EdgeInsets symmetricHorizontalPadding1() =>
-    const EdgeInsets.symmetric(horizontal: 10);
+    EdgeInsets.symmetric(horizontal: 10.w);
 
 EdgeInsets symmetricHorizontalPadding2() =>
-    const EdgeInsets.symmetric(horizontal: 15);
+    EdgeInsets.symmetric(horizontal: 15.w);
 
 class TextUtil extends StatelessWidget {
   final String text;
@@ -127,7 +128,7 @@ class BuildOutlinedButtonUtil extends StatelessWidget {
       required this.child,
       required this.onClick,
       this.color = mainLightColor,
-      this.size = const Size(150.0, 45.0),
+      this.size = const Size(150.0, 50.0),
       this.radius = 5.0})
       : super(key: key);
 
@@ -205,8 +206,8 @@ class BuildImageButtonUtil extends StatelessWidget {
       onTap: onClick,
       child: Image.asset(
         image,
-        height: 35.0,
-        width: 35.0,
+        height: 35.r,
+        width: 35.r,
         fit: BoxFit.fill,
       ),
     );
@@ -237,8 +238,8 @@ class BuildLogoUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.0,
-      width: 200.0,
+      height: 60.h,
+      width: 200.w,
       decoration: BoxDecoration(
         color: whiteColor.withOpacity(0.1),
         borderRadius: const BorderRadius.all(
@@ -250,7 +251,7 @@ class BuildLogoUtil extends StatelessWidget {
         children: [
           TextUtil(
             text: 'Shop',
-            fontSize: 35.0,
+            fontSize: 35.sp,
             color: Get.isDarkMode ? mainDarkColor : mainLightColor,
             fontWeight: FontWeight.bold,
             fontFamily: 'Redressed-Regular',
@@ -258,7 +259,7 @@ class BuildLogoUtil extends StatelessWidget {
           horizontalSpace1(),
           TextUtil(
             text: 'Store',
-            fontSize: 35.0,
+            fontSize: 35.sp,
             color: Get.isDarkMode ? secondDarkColor : secondLightColor,
             fontWeight: FontWeight.bold,
             fontFamily: 'Redressed-Regular',
@@ -293,14 +294,6 @@ SnackbarController showSnackBar(
     margin: const EdgeInsets.all(10),
     duration: const Duration(seconds: 2),
     colorText: Get.isDarkMode ? secondDarkColor : secondLightColor,
-  );
-}
-
-Widget x() {
-  return CachedNetworkImage(
-    imageUrl: "http://via.placeholder.com/350x150",
-    placeholder: (context, url) => CircularProgressIndicator(),
-    errorWidget: (context, url, error) => Icon(Icons.error),
   );
 }
 

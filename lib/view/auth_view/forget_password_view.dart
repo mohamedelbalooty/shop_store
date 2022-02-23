@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -25,7 +26,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          // alignment: Alignment.bottomCenter,
           children: [
             const BuildBackgroundUtil(),
             Container(
@@ -49,30 +49,30 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                             GestureDetector(
                               onTap: () => Get.back(),
                               child: Container(
-                                height: 45.0,
-                                width: 45.0,
+                                height: 45.r,
+                                width: 45.r,
                                 margin: padding2(),
                                 decoration: BoxDecoration(
                                   color: whiteColor.withOpacity(0.1),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Center(
+                                child: Center(
                                     child: Icon(
                                   Icons.close,
                                   color: mainLightColor,
-                                  size: 30.0,
+                                  size: 30.sp,
                                 )),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: isPortrait ? 55 : 20),
+                        SizedBox(height: isPortrait ? 55.h : 20.h),
                         const BuildLogoUtil(),
                         verticalSpace3(),
-                        const Text(
+                        Text(
                           'If you want to recover your account, then please provide your email id below.',
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 16.sp,
                             color: whiteColor,
                             height: 2.0,
                           ),
@@ -98,7 +98,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                             child: !_controller.isLoading
                                 ? TextUtil(
                                     text: 'Send'.toUpperCase(),
-                                    fontSize: 20.0,
+                                    fontSize: 20.sp,
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
@@ -106,7 +106,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                             color:
                                 Get.isDarkMode ? mainDarkColor : mainLightColor,
                             radius: 0.0,
-                            size: Size(infinityWidth, 50.0),
+                            size: Size(infinityWidth, 50.h),
                             onClick: () async {
                               if (_globalKey.currentState!.validate()) {
                                 await _controller.forgetPassword(

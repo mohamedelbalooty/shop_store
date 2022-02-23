@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -13,10 +14,11 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
 
   const BuildUnderlinedTextFormField(
       {Key? key,
-        required this.hint,
-        required this.controller,
-        required this.validate,
-        this.isPassword = false, this.suffixWidget})
+      required this.hint,
+      required this.controller,
+      required this.validate,
+      this.isPassword = false,
+      this.suffixWidget})
       : super(key: key);
 
   @override
@@ -26,17 +28,17 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
       validator: validate,
       obscureText: isPassword,
       cursorColor: mainLightColor,
-      style: const TextStyle(
+      style: TextStyle(
         color: secondLightColor,
-        fontSize: 16.0,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: mainLightColor, fontSize: 18.0),
-        errorStyle: const TextStyle(
+        errorStyle: TextStyle(
           color: secondLightColor,
-          fontSize: 14.0,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
         ),
         suffixIcon: suffixWidget,
@@ -49,8 +51,8 @@ class BuildUnderlinedTextFormField extends StatelessWidget {
   }
 
   UnderlineInputBorder _underlineBorder() => const UnderlineInputBorder(
-    borderSide: BorderSide(width: 2.0, color: mainLightColor),
-  );
+        borderSide: BorderSide(width: 2.0, color: mainLightColor),
+      );
 }
 
 class BuildAuthQuestionWidget extends StatelessWidget {
@@ -59,15 +61,14 @@ class BuildAuthQuestionWidget extends StatelessWidget {
 
   const BuildAuthQuestionWidget(
       {Key? key,
-        required this.question,
-        required this.buttonText,
-        required this.onClick})
+      required this.question,
+      required this.buttonText,
+      required this.onClick})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: AppBar().preferredSize.height,
       height: kBottomNavigationBarHeight,
       width: infinityWidth,
       color: Get.isDarkMode ? mainDarkColor : mainLightColor,
@@ -77,14 +78,14 @@ class BuildAuthQuestionWidget extends StatelessWidget {
         children: [
           TextUtil(
             text: question,
-            fontSize: 16.0,
+            fontSize: 16.sp,
             color: Get.isDarkMode ? secondDarkColor : secondLightColor,
             fontWeight: FontWeight.normal,
           ),
           horizontalSpace1(),
           BuildTextButtonUtil(
               text: buttonText,
-              fontSize: 16.0,
+              fontSize: 16.sp,
               color: Get.isDarkMode ? secondDarkColor : secondLightColor,
               fontWeight: FontWeight.normal,
               decoration: TextDecoration.underline,
@@ -106,14 +107,11 @@ class BuildCheckTermsWidget extends StatelessWidget {
       children: [
         GetBuilder<AuthController>(builder: (context) {
           return Checkbox(
-            materialTapTargetSize:
-            MaterialTapTargetSize.shrinkWrap,
-            checkColor: Get.isDarkMode
-                ? secondDarkColor
-                : secondLightColor,
-            fillColor: MaterialStateProperty.all(Get.isDarkMode
-                ? mainDarkColor
-                : mainLightColor,),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            checkColor: Get.isDarkMode ? secondDarkColor : secondLightColor,
+            fillColor: MaterialStateProperty.all(
+              Get.isDarkMode ? mainDarkColor : mainLightColor,
+            ),
             value: _controller.isChecked,
             onChanged: (bool? value) {
               _controller.changeCheck(value!);
@@ -122,18 +120,14 @@ class BuildCheckTermsWidget extends StatelessWidget {
         }),
         TextUtil(
           text: 'I accept ',
-          fontSize: 14.0,
-          color: Get.isDarkMode
-              ? secondDarkColor
-              : secondLightColor,
+          fontSize: 14.sp,
+          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
           fontWeight: FontWeight.normal,
         ),
         BuildTextButtonUtil(
           text: 'terms & conditions',
-          fontSize: 14.0,
-          color: Get.isDarkMode
-              ? secondDarkColor
-              : secondLightColor,
+          fontSize: 14.sp,
+          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
           fontWeight: FontWeight.normal,
           decoration: TextDecoration.underline,
           padding: EdgeInsets.zero,

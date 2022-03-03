@@ -7,22 +7,16 @@ import 'package:shop_store/view/layout_view/home_view/home_view.dart';
 import 'package:shop_store/view/layout_view/settings_view/settings_view.dart';
 
 class LayoutController extends GetxController {
-  final selectedItemColor = Get.isDarkMode ? secondDarkColor : secondLightColor;
+  final selectedItemColor = whiteColor;
 
   final unselectedItemColor = Colors.white54;
 
   final unselectedBgColor = secondaryColor;
 
   RxInt selectedScreen = 0.obs;
-  int selectedBanner = 0;
 
   void onItemTapped(int index) {
     selectedScreen.value = index;
-  }
-
-  void onBannerChanged(int index) {
-    selectedBanner = index;
-    update();
   }
 
   Color getBgColor(int index) {

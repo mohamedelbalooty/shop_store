@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:shop_store/utils/routes/routes.dart';
 import 'logic/controller/theme_controller.dart';
 import 'utils/colors.dart';
+import 'utils/helper/dio_helper.dart';
 import 'utils/helper/storage_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await StorageHelper.initStorage();
+  DioHelper.init();
   runApp(const ShopStore());
 }
 

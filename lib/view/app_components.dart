@@ -1,9 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 double infinityHeight = double.infinity;
 double infinityWidth = double.infinity;
@@ -275,9 +275,62 @@ class BuildCircularLoadingUtil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator.adaptive(
-      valueColor: AlwaysStoppedAnimation<Color>(
-          Get.isDarkMode ? secondDarkColor : secondLightColor),
+    return Center(
+      child: CircularProgressIndicator.adaptive(
+        valueColor: AlwaysStoppedAnimation<Color>(
+            Get.isDarkMode ? mainDarkColor : mainLightColor),
+      ),
+    );
+  }
+}
+
+class RectangleShimmerLoading extends StatelessWidget {
+  final double height, width, raduis;
+
+  const RectangleShimmerLoading({
+    Key? key,
+    required this.height,
+    required this.width,
+    this.raduis = 2.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[400]!,
+      highlightColor: Colors.grey[300]!,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(raduis)),
+        ),
+      ),
+    );
+  }
+}
+
+class CircleShimmerLoading extends StatelessWidget {
+  final double height, width;
+
+  const CircleShimmerLoading(
+      {Key? key, required this.height, required this.width})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[400]!,
+      highlightColor: Colors.grey[300]!,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+      ),
     );
   }
 }
@@ -310,17 +363,12 @@ class BuildNetworkImageUtil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
+    return FadeInImage.memoryNetwork(
       height: height,
       width: width,
-      imageUrl: image,
+      image: image,
       fit: BoxFit.fill,
-      placeholder: (context, url) => const SpinKitThreeBounce(
-        color: Colors.pink,
-        size: 30.0,
-      ),
-      errorWidget: (context, url, error) =>
-          const Icon(Icons.error, color: Colors.red),
+      placeholder: kTransparentImage,
     );
   }
 }

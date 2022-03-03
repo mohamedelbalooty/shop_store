@@ -2,7 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shop_store/logic/controller/layout_controller.dart';
+import 'package:shop_store/logic/controller/home_controller.dart';
+import 'package:shop_store/model/product.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -14,6 +15,151 @@ const List<String> salesBanner = [
   'https://i.pinimg.com/originals/3a/de/2c/3ade2c45ad91861f038700497430e99c.jpg',
   'https://i.pinimg.com/originals/ce/99/0c/ce990c0668729dc4bafeb093ecb964dc.jpg'
 ];
+
+class BuildHomeLoading extends StatelessWidget {
+  const BuildHomeLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          verticalSpace3(),
+          Padding(
+            padding: symmetricHorizontalPadding1(),
+            child: RectangleShimmerLoading(height: 45.h, width: infinityWidth),
+          ),
+          verticalSpace2(),
+          Padding(
+            padding: symmetricHorizontalPadding1(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                RectangleShimmerLoading(
+                  height: 8.0,
+                  width: 100.0,
+                  raduis: 0.0,
+                ),
+                RectangleShimmerLoading(
+                  height: 8.0,
+                  width: 80.0,
+                  raduis: 0.0,
+                ),
+              ],
+            ),
+          ),
+          verticalSpace2(),
+          SizedBox(
+            height: 100.h,
+            width: infinityWidth,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (_, index) => Padding(
+                padding: index == 0
+                    ? EdgeInsetsDirectional.only(start: 10.w)
+                    : EdgeInsets.zero,
+                child: RectangleShimmerLoading(
+                  height: 100.h,
+                  width: 100.w,
+                ),
+              ),
+              separatorBuilder: (_, index) => horizontalSpace3(),
+            ),
+          ),
+          verticalSpace2(),
+          Padding(
+            padding: symmetricHorizontalPadding1(),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                RectangleShimmerLoading(
+                  height: 8.0,
+                  width: 100.0,
+                  raduis: 0.0,
+                ),
+              ],
+            ),
+          ),
+          verticalSpace2(),
+          RectangleShimmerLoading(height: 160.h, width: 300.w, raduis: 5.0),
+          verticalSpace2(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleShimmerLoading(
+                height: 12.r,
+                width: 12.r,
+              ),horizontalSpace1(),
+              CircleShimmerLoading(
+                height: 12.r,
+                width: 12.r,
+              ),horizontalSpace1(),CircleShimmerLoading(
+                height: 12.r,
+                width: 12.r,
+              ),horizontalSpace1(),
+              CircleShimmerLoading(
+                height: 12.r,
+                width: 12.r,
+              ),
+            ],
+          ),
+          verticalSpace2(),
+          Padding(
+            padding: symmetricHorizontalPadding1(),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                RectangleShimmerLoading(
+                  height: 8.0,
+                  width: 100.0,
+                  raduis: 0.0,
+                ),
+              ],
+            ),
+          ),
+          verticalSpace2(),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: symmetricHorizontalPadding1(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 200.h,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.w),
+            itemCount: 4,
+            itemBuilder: (_, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RectangleShimmerLoading(
+                    height: 120.h,
+                    width: infinityWidth,
+                    raduis: 5.0,
+                  ),
+                  verticalSpace2(),
+                  const RectangleShimmerLoading(
+                    height: 5.0,
+                    width: 100.0,
+                    raduis: 0.0,
+                  ),
+                  verticalSpace2(),
+                  const RectangleShimmerLoading(
+                    height: 5.0,
+                    width: 80.0,
+                    raduis: 0.0,
+                  ),
+                ],
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class BuildSearchWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -138,8 +284,8 @@ class BuildHomeCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(100),
-      width: ScreenUtil().setWidth(100),
+      height: 100.h,
+      width: 100.w,
       margin: margin,
       child: BuildNetworkImageUtil(
         image: testImage,
@@ -151,7 +297,7 @@ class BuildHomeCategoryWidget extends StatelessWidget {
 }
 
 class BuildBannerWidget extends StatelessWidget {
-  final LayoutController controller;
+  final HomeController controller;
 
   const BuildBannerWidget({Key? key, required this.controller})
       : super(key: key);
@@ -162,8 +308,8 @@ class BuildBannerWidget extends StatelessWidget {
       itemCount: salesBanner.length,
       itemBuilder: (BuildContext context, int index, int pageViewIndex) {
         return Container(
-          height: ScreenUtil().setHeight(160),
-          width: ScreenUtil().setWidth(250),
+          height: 160.h,
+          width: 250.w,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(5.0),
@@ -189,7 +335,7 @@ class BuildBannerWidget extends StatelessWidget {
         height: ScreenUtil().setHeight(160),
         aspectRatio: 1.0,
         disableCenter: true,
-        autoPlay: true,
+        autoPlay: false,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
         pauseAutoPlayOnTouch: true,
@@ -201,14 +347,14 @@ class BuildBannerWidget extends StatelessWidget {
 }
 
 class BuildBannerIndicators extends StatelessWidget {
-  final LayoutController controller;
+  final HomeController controller;
 
   const BuildBannerIndicators({Key? key, required this.controller})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LayoutController>(builder: (context) {
+    return GetBuilder<HomeController>(builder: (context) {
       return AnimatedSmoothIndicator(
         activeIndex: controller.selectedBanner,
         count: salesBanner.length,
@@ -224,7 +370,8 @@ class BuildBannerIndicators extends StatelessWidget {
 }
 
 class BuildProductItemWidget extends StatelessWidget {
-  const BuildProductItemWidget({Key? key}) : super(key: key);
+  final Product product;
+  const BuildProductItemWidget({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -246,22 +393,22 @@ class BuildProductItemWidget extends StatelessWidget {
           children: [
             BuildNetworkImageUtil(
               image:
-                  'https://cf.shopee.com.my/file/c8f8ef9c37b2895eb0e3ef78f5dc5544',
+                  product.image,
               height: 120.h,
               width: infinityWidth,
             ),
             verticalSpace1(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 50.h,
-                    width: 110.w,
+                    width: 120.0,
                     child: Text(
-                      'Shoes from natural skin in body',
+                      product.title,
                       style: TextStyle(
                         color:
                             Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -297,7 +444,7 @@ class BuildProductItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextUtil(
-                    text: '105 SE',
+                    text: '${product.price} \$',
                     fontSize: 16.sp,
                     color: Get.isDarkMode ? secondLightColor : secondDarkColor,
                     fontWeight: FontWeight.bold,
@@ -307,27 +454,27 @@ class BuildProductItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Icon(
-                        Icons.star_border,
+                        product.rating.rate.floor() >= 5 ? Icons.star : Icons.star_border,
                         size: 15.0,
                         color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                       ),
                       Icon(
-                        Icons.star,
+                        product.rating.rate.floor() >= 4 ? Icons.star : Icons.star_border,
                         size: 15.0,
                         color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                       ),
                       Icon(
-                        Icons.star,
+                        product.rating.rate.floor() >= 3 ? Icons.star : Icons.star_border,
                         size: 15.0,
                         color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                       ),
                       Icon(
-                        Icons.star,
+                        product.rating.rate.floor() >= 2 ? Icons.star : Icons.star_border,
                         size: 15.0,
                         color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                       ),
                       Icon(
-                        Icons.star,
+                        product.rating.rate.floor() >= 1 ? Icons.star : Icons.star_border,
                         size: 15.0,
                         color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                       ),

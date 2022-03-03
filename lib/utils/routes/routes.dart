@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shop_store/logic/binding/auth_binding.dart';
+import 'package:shop_store/logic/binding/home_binding.dart';
 import 'package:shop_store/logic/binding/layout_binding.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
 import 'package:shop_store/view/auth_view/login_view.dart';
@@ -40,6 +41,7 @@ class Routes {
         bindings: [
           AuthBinding(),
           LayoutBinding(),
+          HomeBinding(),
         ]),
     // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
     // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),

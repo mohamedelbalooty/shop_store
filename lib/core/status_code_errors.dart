@@ -16,11 +16,27 @@ ErrorResult returnResponse(Response response) {
       return FetchDataException().errorResult();
   }
 }
-//
-// ErrorResult dioError(DioError errorType){
-//   switch(errorType.type){
-//     case DioErrorType.response:
-//       return Right(returnResponse(response));
-//     case
-//   }
-// }
+
+ErrorResult dioError({required DioError errorType, Response? response}) {
+  const ErrorResult connectionError = ErrorResult(
+      errorMessage: 'Check your connection and try again!',
+      errorImage: 'assets/images/socket_exception.svg');
+  switch (errorType.type) {
+    case DioErrorType.response:
+      return returnResponse(response!);
+    case DioErrorType.cancel:
+      return const ErrorResult(
+          errorMessage: 'You canceled connection try again!',
+          errorImage: 'assets/images/socket_exception.svg');
+    case DioErrorType.connectTimeout:
+      return const ErrorResult(
+          errorMessage: 'Your connection time out try again!',
+          errorImage: 'assets/images/socket_exception.svg');
+    case DioErrorType.receiveTimeout:
+      return connectionError;
+    case DioErrorType.sendTimeout:
+      return connectionError;
+    case DioErrorType.other:
+      return connectionError;
+  }
+}

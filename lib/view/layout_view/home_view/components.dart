@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/home_controller.dart';
-import 'package:shop_store/model/product.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,10 +24,9 @@ class BuildHomeLoading extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          verticalSpace3(),
           Padding(
             padding: symmetricHorizontalPadding1(),
-            child: RectangleShimmerLoading(height: 45.h, width: infinityWidth),
+            child: RectangleShimmerLoadingUtil(height: 45.h, width: infinityWidth),
           ),
           verticalSpace2(),
           Padding(
@@ -36,12 +34,12 @@ class BuildHomeLoading extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                RectangleShimmerLoading(
+                RectangleShimmerLoadingUtil(
                   height: 8.0,
                   width: 100.0,
                   raduis: 0.0,
                 ),
-                RectangleShimmerLoading(
+                RectangleShimmerLoadingUtil(
                   height: 8.0,
                   width: 80.0,
                   raduis: 0.0,
@@ -60,7 +58,7 @@ class BuildHomeLoading extends StatelessWidget {
                 padding: index == 0
                     ? EdgeInsetsDirectional.only(start: 10.w)
                     : EdgeInsets.zero,
-                child: RectangleShimmerLoading(
+                child: RectangleShimmerLoadingUtil(
                   height: 100.h,
                   width: 100.w,
                 ),
@@ -74,7 +72,7 @@ class BuildHomeLoading extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                RectangleShimmerLoading(
+                RectangleShimmerLoadingUtil(
                   height: 8.0,
                   width: 100.0,
                   raduis: 0.0,
@@ -83,23 +81,30 @@ class BuildHomeLoading extends StatelessWidget {
             ),
           ),
           verticalSpace2(),
-          RectangleShimmerLoading(height: 160.h, width: 300.w, raduis: 5.0),
+          Padding(
+            padding: symmetricHorizontalPadding1(),
+            child: RectangleShimmerLoadingUtil(height: 160.h, width: infinityWidth, raduis: 5.0),
+          ),
           verticalSpace2(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleShimmerLoading(
+              CircleShimmerLoadingUtil(
                 height: 12.r,
                 width: 12.r,
-              ),horizontalSpace1(),
-              CircleShimmerLoading(
+              ),
+              horizontalSpace1(),
+              CircleShimmerLoadingUtil(
                 height: 12.r,
                 width: 12.r,
-              ),horizontalSpace1(),CircleShimmerLoading(
+              ),
+              horizontalSpace1(),
+              CircleShimmerLoadingUtil(
                 height: 12.r,
                 width: 12.r,
-              ),horizontalSpace1(),
-              CircleShimmerLoading(
+              ),
+              horizontalSpace1(),
+              CircleShimmerLoadingUtil(
                 height: 12.r,
                 width: 12.r,
               ),
@@ -111,7 +116,7 @@ class BuildHomeLoading extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                RectangleShimmerLoading(
+                RectangleShimmerLoadingUtil(
                   height: 8.0,
                   width: 100.0,
                   raduis: 0.0,
@@ -134,19 +139,19 @@ class BuildHomeLoading extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RectangleShimmerLoading(
+                  RectangleShimmerLoadingUtil(
                     height: 120.h,
                     width: infinityWidth,
                     raduis: 5.0,
                   ),
                   verticalSpace2(),
-                  const RectangleShimmerLoading(
+                  const RectangleShimmerLoadingUtil(
                     height: 5.0,
                     width: 100.0,
                     raduis: 0.0,
                   ),
                   verticalSpace2(),
-                  const RectangleShimmerLoading(
+                  const RectangleShimmerLoadingUtil(
                     height: 5.0,
                     width: 80.0,
                     raduis: 0.0,
@@ -366,143 +371,5 @@ class BuildBannerIndicators extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class BuildProductItemWidget extends StatelessWidget {
-  final Product product;
-  const BuildProductItemWidget({Key? key, required this.product}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: context.theme.backgroundColor,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-          boxShadow: [
-            BoxShadow(
-                color: Get.isDarkMode ? Colors.white12 : Colors.black12,
-                blurRadius: 2,
-                offset: const Offset(0.5, 0.5),
-                spreadRadius: 1.5),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BuildNetworkImageUtil(
-              image:
-                  product.image,
-              height: 120.h,
-              width: infinityWidth,
-            ),
-            verticalSpace1(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                    width: 120.0,
-                    child: Text(
-                      product.title,
-                      style: TextStyle(
-                        color:
-                            Get.isDarkMode ? secondLightColor : secondDarkColor,
-                        fontSize: 14.sp,
-                        height: 1.5,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  horizontalSpace1(),
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    splashColor: transparent,
-                    hoverColor: transparent,
-                    focusColor: transparent,
-                    highlightColor: transparent,
-                    icon: const Icon(
-                      IconBroken.Heart,
-                      size: 26.0,
-                    ),
-                    color: Get.isDarkMode ? mainDarkColor : secondaryColor,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextUtil(
-                    text: '${product.price} \$',
-                    fontSize: 16.sp,
-                    color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-                    fontWeight: FontWeight.bold,
-                    height: 1,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        product.rating.rate.floor() >= 5 ? Icons.star : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 4 ? Icons.star : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 3 ? Icons.star : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 2 ? Icons.star : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 1 ? Icons.star : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                height: 50.h,
-                width: infinityWidth,
-                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                child: Center(
-                  child: TextUtil(
-                    text: 'Add to cart',
-                    fontSize: 16.sp,
-                    color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

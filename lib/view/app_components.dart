@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shop_store/utils/colors.dart';
@@ -34,11 +37,9 @@ EdgeInsets padding2() => const EdgeInsets.all(10);
 
 EdgeInsets padding3() => const EdgeInsets.all(20);
 
-EdgeInsets symmetricVerticalPadding1() =>
-    EdgeInsets.symmetric(vertical: 10.h);
+EdgeInsets symmetricVerticalPadding1() => EdgeInsets.symmetric(vertical: 10.h);
 
-EdgeInsets symmetricVerticalPadding2() =>
-    EdgeInsets.symmetric(vertical: 15.h);
+EdgeInsets symmetricVerticalPadding2() => EdgeInsets.symmetric(vertical: 15.h);
 
 EdgeInsets symmetricHorizontalPadding1() =>
     EdgeInsets.symmetric(horizontal: 10.w);
@@ -54,17 +55,21 @@ class TextUtil extends StatelessWidget {
   final FontWeight fontWeight;
   final String? fontFamily;
   final TextDecoration? decoration;
+  final TextAlign? textAlign;
+  final TextOverflow? textOverflow;
 
-  const TextUtil(
-      {Key? key,
-      required this.text,
-      required this.fontSize,
-      required this.fontWeight,
-      this.fontFamily,
-      this.decoration,
-      this.color = whiteColor,
-      this.height})
-      : super(key: key);
+  const TextUtil({
+    Key? key,
+    required this.text,
+    required this.fontSize,
+    required this.fontWeight,
+    this.color = whiteColor,
+    this.height,
+    this.fontFamily,
+    this.decoration,
+    this.textAlign,
+    this.textOverflow,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +82,71 @@ class TextUtil extends StatelessWidget {
         fontFamily: fontFamily,
         height: height,
         decoration: decoration,
+      ),
+      textAlign: textAlign,
+      overflow: textOverflow,
+    );
+  }
+}
+
+class BuildIconButtonUtil extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final double size;
+  final BoxConstraints? constraints;
+  final Function() onClick;
+
+  const BuildIconButtonUtil({
+    Key? key,
+    required this.icon,
+    required this.color,
+    required this.onClick,
+    this.size = 16.0,
+    this.constraints,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      constraints: constraints,
+      icon: Icon(icon),
+      color: color,
+      iconSize: size,
+      onPressed: onClick,
+    );
+  }
+}
+
+class BuildCircleButtonUtil extends StatelessWidget {
+  final Widget child;
+  final Function() onClick;
+  final Color color;
+  final Size size;
+  final double radius;
+
+  const BuildCircleButtonUtil(
+      {Key? key,
+      required this.child,
+      required this.onClick,
+      this.color = mainLightColor,
+      this.size = const Size(150.0, 50.0),
+      this.radius = 5.0})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: child,
+      onPressed: onClick,
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(size),
+        backgroundColor: MaterialStateProperty.all(color),
+        shape: MaterialStateProperty.all<CircleBorder>(
+          const CircleBorder(),
+        ),
+        ///TO REMOVE ANY PADDING
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
@@ -95,7 +165,7 @@ class BuildElevatedButtonUtil extends StatelessWidget {
       required this.onClick,
       this.color = mainLightColor,
       this.size = const Size(150.0, 50.0),
-      this.radius = 5.0})
+      this.radius = 0.0})
       : super(key: key);
 
   @override
@@ -129,7 +199,7 @@ class BuildOutlinedButtonUtil extends StatelessWidget {
       required this.onClick,
       this.color = mainLightColor,
       this.size = const Size(150.0, 50.0),
-      this.radius = 5.0})
+      this.radius = 0.0})
       : super(key: key);
 
   @override
@@ -284,10 +354,10 @@ class BuildCircularLoadingUtil extends StatelessWidget {
   }
 }
 
-class RectangleShimmerLoading extends StatelessWidget {
+class RectangleShimmerLoadingUtil extends StatelessWidget {
   final double height, width, raduis;
 
-  const RectangleShimmerLoading({
+  const RectangleShimmerLoadingUtil({
     Key? key,
     required this.height,
     required this.width,
@@ -311,10 +381,10 @@ class RectangleShimmerLoading extends StatelessWidget {
   }
 }
 
-class CircleShimmerLoading extends StatelessWidget {
+class CircleShimmerLoadingUtil extends StatelessWidget {
   final double height, width;
 
-  const CircleShimmerLoading(
+  const CircleShimmerLoadingUtil(
       {Key? key, required this.height, required this.width})
       : super(key: key);
 
@@ -335,6 +405,181 @@ class CircleShimmerLoading extends StatelessWidget {
   }
 }
 
+class BuildNetworkImageUtil extends StatelessWidget {
+  final String image;
+  final double? height, width;
+
+  const BuildNetworkImageUtil(
+      {Key? key, required this.image, this.height, this.width})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeInImage.memoryNetwork(
+      height: height,
+      width: width,
+      image: image,
+      fit: BoxFit.fill,
+      placeholder: kTransparentImage,
+      placeholderErrorBuilder: (_, value, error) {
+        return const Center(
+          child: Icon(
+            Icons.error,
+            size: 28.0,
+            color: Colors.red,
+          ),
+        );
+      },
+      imageErrorBuilder: (_, value, error) {
+        return const Center(
+          child: Icon(
+            Icons.error,
+            size: 28.0,
+            color: Colors.red,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class BuildPlatformRefreshIndicatorUtil extends StatelessWidget {
+  final GlobalKey<RefreshIndicatorState> refreshKey;
+  final Future Function() onRefresh;
+  final Widget child;
+
+  const BuildPlatformRefreshIndicatorUtil(
+      {Key? key,
+      required this.refreshKey,
+      required this.onRefresh,
+      required this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Platform.isAndroid ? buildAndroidWidget() : buildIosWidget();
+  }
+
+  Widget buildAndroidWidget() {
+    return RefreshIndicator(
+        key: refreshKey, child: child, onRefresh: onRefresh);
+  }
+
+  Widget buildIosWidget() {
+    return CustomScrollView(
+      slivers: [
+        CupertinoSliverRefreshControl(
+          key: refreshKey,
+          onRefresh: onRefresh,
+        ),
+        SliverToBoxAdapter(
+          child: child,
+        ),
+      ],
+    );
+  }
+}
+
+class BuildErrorUtil extends StatelessWidget {
+  final String image, message;
+  final double? height, width;
+  final Function() onClick;
+
+  const BuildErrorUtil(
+      {Key? key,
+      required this.message,
+      required this.image,
+      required this.onClick,
+      this.height = 200.0,
+      this.width = 200.0})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: symmetricHorizontalPadding1(),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                image,
+                height: height,
+                width: width,
+                fit: BoxFit.fill,
+              ),
+              verticalSpace2(),
+              SizedBox(
+                width: 200.0,
+                child: TextUtil(
+                  text: message,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                  textAlign: TextAlign.center,
+                  height: 1.2,
+                ),
+              ),
+              verticalSpace2(),
+              BuildElevatedButtonUtil(
+                child: TextUtil(
+                  text: 'Try again'.toUpperCase(),
+                  color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                size: Size(infinityWidth, 50.h),
+                onClick: onClick,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BuildEmptyUtil extends StatelessWidget {
+  final String image, message;
+  final double? height, width;
+
+  const BuildEmptyUtil(
+      {Key? key,
+      required this.message,
+      required this.image,
+      this.height = 200.0,
+      this.width = 200.0})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              image,
+              height: 220.w,
+              width: 220.w,
+              fit: BoxFit.fill,
+            ),
+            verticalSpace3(),
+            TextUtil(
+              text: message,
+              fontSize: 22.sp,
+              fontWeight: FontWeight.normal,
+              color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+              textAlign: TextAlign.center,
+              height: 1.2,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 SnackbarController showSnackBar(
     {required String title, required String message, SnackPosition? position}) {
   return Get.snackbar(
@@ -348,27 +593,4 @@ SnackbarController showSnackBar(
     duration: const Duration(seconds: 2),
     colorText: Get.isDarkMode ? secondDarkColor : secondLightColor,
   );
-}
-
-class BuildNetworkImageUtil extends StatelessWidget {
-  final String image;
-  final double? height, width;
-
-  const BuildNetworkImageUtil(
-      {Key? key,
-      required this.image,
-        this.height,
-       this.width})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeInImage.memoryNetwork(
-      height: height,
-      width: width,
-      image: image,
-      fit: BoxFit.fill,
-      placeholder: kTransparentImage,
-    );
-  }
 }

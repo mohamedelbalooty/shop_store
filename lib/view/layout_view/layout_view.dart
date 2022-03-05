@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/layout_controller.dart';
 import 'package:shop_store/logic/controller/theme_controller.dart';
@@ -24,8 +25,8 @@ class _LayoutViewState extends State<LayoutView> {
         appBar: AppBar(
           title: TextUtil(
             text: _controller.appBarTitles[_controller.selectedScreen.value],
-            fontSize: 20.0,
-            color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+            fontSize: 20.sp,
+            color: Get.isDarkMode ? secondLightColor : secondaryColor,
             fontWeight: FontWeight.bold,
           ),
           backgroundColor: Get.isDarkMode ? secondDarkColor : secondLightColor,

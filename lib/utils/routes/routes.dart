@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:shop_store/logic/binding/auth_binding.dart';
+import 'package:shop_store/logic/binding/favourite_binding.dart';
 import 'package:shop_store/logic/binding/home_binding.dart';
 import 'package:shop_store/logic/binding/layout_binding.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
 import 'package:shop_store/view/auth_view/login_view.dart';
 import 'package:shop_store/view/auth_view/signup_view.dart';
 import 'package:shop_store/view/auth_view/verification_view.dart';
+import 'package:shop_store/view/cart_view/cart_view.dart';
 import 'package:shop_store/view/layout_view/layout_view.dart';
 import 'package:shop_store/view/welcome_view/welcome_view.dart';
 
@@ -42,8 +44,12 @@ class Routes {
           AuthBinding(),
           LayoutBinding(),
           HomeBinding(),
+          FavouriteBinding(),
         ]),
-    // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
+    GetPage(
+      name: RoutesPath.cartView,
+      page: () => const CartView(),
+    ),
     // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
     // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
   ];
@@ -56,6 +62,7 @@ class RoutesPath {
   static const String forgetPasswordView = '/forgetPasswordView';
   static const String verificationView = '/verificationView';
   static const String homeView = '/homeView';
+  static const String cartView = '/cartView';
 // static const String verificationView = '/verificationView';
 // static const String verificationView = '/verificationView';
 // static const String verificationView = '/verificationView';

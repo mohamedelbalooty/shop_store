@@ -10,7 +10,6 @@ class HomeService {
     try {
       var response = await DioHelper.getData(url: 'products/categories');
       if (response.statusCode == 200) {
-        print(response.data);
         List<dynamic> data = response.data;
         List<String> categories = data.map((e) => e.toString()).toList();
         return Left(categories);
@@ -18,19 +17,8 @@ class HomeService {
         return Right(returnResponse(response));
       }
     } on DioError catch (dioException) {
-      if (dioException.type == DioErrorType.response) {
-        return Right(returnResponse(dioException.response!));
-      } else if(dioException.type == DioErrorType.other) {
-        ErrorResult errorResult = const ErrorResult(
-            errorMessage: 'errorMessage',
-            errorImage: 'assets/images/cover.png');
-        return Right(errorResult);
-      }else{
-        ErrorResult errorResult = const ErrorResult(
-            errorMessage: 'errorMessage',
-            errorImage: 'assets/images/cover.png');
-        return Right(errorResult);
-      }
+      return Right(
+          dioError(errorType: dioException, response: dioException.response));
     }
   }
 
@@ -39,37 +27,27 @@ class HomeService {
       var response = await DioHelper.getData(url: 'products?limit=10');
       if (response.statusCode == 200) {
         List<dynamic> data = response.data;
-        print(response.data);
-        print(data);
         List<Product> products = data.map((e) => Product.fromMap(e)).toList();
-        print(products.first);
         return Left(products);
       } else {
         return Right(returnResponse(response));
       }
     } on DioError catch (dioException) {
-      print(dioException.type);
-      if (dioException.type == DioErrorType.response) {
-        print(dioException.type);
-        return Right(returnResponse(dioException.response!));
-      } else if(dioException.type == DioErrorType.other) {
-        ErrorResult errorResult = const ErrorResult(
-            errorMessage: 'errorMessage',
-            errorImage: 'assets/images/cover.png');
-        return Right(errorResult);
-      }else{
-        print(dioException.type);
-        ErrorResult errorResult = const ErrorResult(
-            errorMessage: 'errorMessage',
-            errorImage: 'assets/images/cover.png');
-        return Right(errorResult);
-      }
-    }catch(e){
-      print('e => $e');
-      ErrorResult errorResult = const ErrorResult(
-          errorMessage: 'errorMessage',
-          errorImage: 'assets/images/cover.png');
-      return Right(errorResult);
+      return Right(
+          dioError(errorType: dioException, response: dioException.response));
+      // if (dioException.type == DioErrorType.response) {
+      //   return Right(returnResponse(dioException.response!));
+      // } else if(dioException.type == DioErrorType.other) {
+      //   ErrorResult errorResult = const ErrorResult(
+      //       errorMessage: 'error  Message',
+      //       errorImage: 'assets/images/cover.png');
+      //   return Right(errorResult);
+      // }else{
+      //   ErrorResult errorResult = const ErrorResult(
+      //       errorMessage: 'errorMessage',
+      //       errorImage: 'assets/images/cover.png');
+      //   return Right(errorResult);
+      // }
     }
   }
 }

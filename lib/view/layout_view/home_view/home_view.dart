@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/home_controller.dart';
 import '../../app_components.dart';
+import '../components.dart';
 import 'components.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,6 +14,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
   final TextEditingController _searchController = TextEditingController();
   final _homeController = Get.find<HomeController>();
 
@@ -24,13 +26,27 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: context.theme.backgroundColor,
       body: Obx(
         () {
-          print(_homeController.categoryIsLoading.value);
-          print(_homeController.productsIsLoading.value);
           if (_homeController.categoryIsLoading.value ||
               _homeController.productsIsLoading.value) {
             return const BuildHomeLoading();
-          } else {
-            return SingleChildScrollView(
+          } else if (_homeController.categoryIsError.value ||
+              _homeController.productsIsError.value) {
+            return BuildErrorUtil(
+              height: 220.h,
+              width: 220.w,
+              image: _homeController.error.value.errorImage,
+              message: _homeController.error.value.errorMessage,
+              onClick: () async {
+                await _homeController.refreshHomePage();
+              },
+            );
+          }
+          return BuildPlatformRefreshIndicatorUtil(
+            refreshKey: _refreshKey,
+            onRefresh: () {
+              return _homeController.refreshHomePage();
+            },
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -42,21 +58,15 @@ class _HomeViewState extends State<HomeView> {
                   SizedBox(
                     height: 100.h,
                     width: infinityWidth,
-                    child: !_homeController.categoryIsError.value
-                        ? ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _homeController.categories.length,
-                            itemBuilder: (_, index) => BuildHomeCategoryWidget(
-                                margin: index == 0
-                                    ? EdgeInsetsDirectional.only(start: 10.w)
-                                    : EdgeInsets.zero),
-                            separatorBuilder: (_, index) => horizontalSpace3(),
-                          )
-                        : const Center(
-                            child: Text(
-                            'ERROR',
-                            style: TextStyle(color: Colors.red),
-                          )),
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _homeController.categories.length,
+                      itemBuilder: (_, index) => BuildHomeCategoryWidget(
+                          margin: index == 0
+                              ? EdgeInsetsDirectional.only(start: 10.w)
+                              : EdgeInsets.zero),
+                      separatorBuilder: (_, index) => horizontalSpace3(),
+                    ),
                   ),
                   verticalSpace1(),
                   const BuildHomeTitleWidget(text: 'Sales'),
@@ -67,32 +77,28 @@ class _HomeViewState extends State<HomeView> {
                   verticalSpace1(),
                   const BuildHomeTitleWidget(text: 'Products'),
                   verticalSpace1(),
-                  !_homeController.productsIsError.value
-                      ? GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: symmetricHorizontalPadding1(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: isPortrait ? 2 : 3,
-                                  mainAxisExtent: 250.h,
-                                  crossAxisSpacing: 10.w,
-                                  mainAxisSpacing: 10.w),
-                          itemCount: _homeController.products.length,
-                          itemBuilder: (_, index) {
-                            return BuildProductItemWidget(product: _homeController.products[index],);
-                          },
-                        )
-                      : const Center(
-                          child: Text(
-                          'ERROR',
-                          style: TextStyle(color: Colors.red),
-                        )),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: symmetricHorizontalPadding1(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: isPortrait ? 2 : 3,
+                        mainAxisExtent: 250.h,
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.w),
+                    itemCount: _homeController.products.length,
+                    itemBuilder: (_, index) {
+                      return BuildProductItemUtil(
+                        products: _homeController.products,
+                        product: _homeController.products[index],
+                      );
+                    },
+                  ),
                   verticalSpace1(),
                 ],
               ),
-            );
-          }
+            ),
+          );
         },
       ),
     );

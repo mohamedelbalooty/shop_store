@@ -7,4 +7,5 @@ const Color secondDarkColor = Color(0xFF161515);
 const Color secondaryColor = Color(0xFF381460);
 const Color whiteColor = Colors.white;
 const Color blackColor = Colors.black;
+const Color redColor = Colors.red;
 const Color transparent = Colors.transparent;

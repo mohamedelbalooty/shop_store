@@ -28,6 +28,18 @@ class Product {
         image: json["image"] ?? emptyImage,
         rating: Rating.fromMap(json["rating"]),
       );
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'description': description,
+      'category': category,
+      'image': image,
+      'rating': rating.toMap()
+    };
+  }
 }
 
 class Rating {
@@ -43,4 +55,8 @@ class Rating {
         rate: json["rate"].toDouble() ?? '00',
         count: json["count"] ?? '0',
       );
+
+  Map<String, dynamic> toMap() {
+    return {'rate': rate, 'count': count};
+  }
 }

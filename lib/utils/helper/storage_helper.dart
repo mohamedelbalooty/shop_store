@@ -9,19 +9,32 @@ class StorageHelper {
 
   static Future<void> setStringData(
       {required String key, required String value}) async {
-    return await storage?.write(key, value);
+    return await storage!.write(key, value);
   }
 
-  static String getStringData({required String key}) {
-    return storage?.read(key);
+  static String? getStringData({required String key}) {
+    return storage!.read(key);
   }
 
   static Future<void> setBoolData(
       {required String key, required bool value}) async {
-    return await storage?.write(key, value);
+    return await storage!.write(key, value);
   }
 
   static bool getBoolData({required String key}) {
-    return storage?.read(key) ?? false;
+    return storage!.read(key) ?? false;
+  }
+
+  static Future<void> setListData(
+      {required String key, required List value}) async {
+    return await storage!.write(key, value);
+  }
+
+  static List? getListData({required String key}) {
+    return storage!.read(key);
+  }
+
+  static Future<void> removeListData({required String key}) async {
+    await storage!.remove(key);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:shop_store/logic/binding/auth_binding.dart';
-import 'package:shop_store/logic/binding/favourite_binding.dart';
 import 'package:shop_store/logic/binding/home_binding.dart';
 import 'package:shop_store/logic/binding/layout_binding.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
@@ -44,14 +43,13 @@ class Routes {
           AuthBinding(),
           LayoutBinding(),
           HomeBinding(),
-          FavouriteBinding(),
+          // FavouriteBinding(),
         ]),
     GetPage(
       name: RoutesPath.cartView,
-      page: () => const CartView(),
+      page: () => CartView(),
+      binding: HomeBinding(),
     ),
-    // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
-    // GetPage(name: RoutesPath.loginView, page: () => const LoginView()),
   ];
 }
 

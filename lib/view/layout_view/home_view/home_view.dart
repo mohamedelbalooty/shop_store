@@ -17,7 +17,6 @@ class _HomeViewState extends State<HomeView> {
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
   final TextEditingController _searchController = TextEditingController();
   final _homeController = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     final bool isPortrait =

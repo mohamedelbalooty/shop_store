@@ -8,11 +8,12 @@ import 'package:shop_store/view/auth_view/signup_view.dart';
 import 'package:shop_store/view/auth_view/verification_view.dart';
 import 'package:shop_store/view/cart_view/cart_view.dart';
 import 'package:shop_store/view/layout_view/layout_view.dart';
+import 'package:shop_store/view/product_view/product_view.dart';
 import 'package:shop_store/view/welcome_view/welcome_view.dart';
 
 class Routes {
   // static const String initialRoute = RoutesPath.welcomeView;
-  static const String initialRoute = RoutesPath.homeView;
+  static const String initialRoute = RoutesPath.productView;
 
   static List<GetPage> routes = [
     GetPage(name: RoutesPath.welcomeView, page: () => const WelcomeView()),
@@ -50,6 +51,10 @@ class Routes {
       page: () => CartView(),
       binding: HomeBinding(),
     ),
+    GetPage(
+      name: RoutesPath.productView,
+      page: () => const ProductView(),
+    ),
   ];
 }
 
@@ -61,7 +66,7 @@ class RoutesPath {
   static const String verificationView = '/verificationView';
   static const String homeView = '/homeView';
   static const String cartView = '/cartView';
-// static const String verificationView = '/verificationView';
+  static const String productView = '/productView';
 // static const String verificationView = '/verificationView';
 // static const String verificationView = '/verificationView';
 // static const String verificationView = '/verificationView';

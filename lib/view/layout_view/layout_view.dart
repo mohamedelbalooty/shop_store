@@ -42,9 +42,7 @@ class _LayoutViewState extends State<LayoutView> {
             },
           ),
           actions: [
-            BuildAppBarCartButton(
-              cartNum: '1',
-            ),
+            BuildAppBarCartButton(),
             // Obx((){
             //   return Badge(
             //     badgeContent: TextUtil(text: _cartController.productsQuantity.toString(), fontSize: 13.sp, fontWeight: FontWeight.bold,),

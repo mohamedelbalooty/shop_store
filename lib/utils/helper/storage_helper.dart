@@ -37,4 +37,12 @@ class StorageHelper {
   static Future<void> removeListData({required String key}) async {
     await storage!.remove(key);
   }
+
+  static Future<void> setMapData({required String key, required Map value}) async{
+    return await storage!.write(key, value);
+  }
+
+  static Map? getMapData({required String key}){
+    return storage!.read(key);
+  }
 }

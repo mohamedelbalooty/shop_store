@@ -95,73 +95,34 @@ class BuildBottomNavBarWidget extends StatelessWidget {
 }
 
 class BuildAppBarCartButton extends StatelessWidget {
-  final String cartNum;
-
-  BuildAppBarCartButton({Key? key, required this.cartNum})
-      : super(key: key);
+  BuildAppBarCartButton({Key? key}) : super(key: key);
   final _cartController = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: context.theme.backgroundColor,
-      child:
-      // InkWell(
-      //   onTap: () {
-      //   },
-      //   child: SizedBox(
-      //     width: 50.w,
-      //     // child: Stack(
-      //     //   alignment: Alignment.center,
-      //     //   children: [
-      //     //     Icon(
-      //     //       IconBroken.Bag_2,
-      //     //       color: Get.isDarkMode ? mainDarkColor : secondaryColor,
-      //     //       size: 32.0,
-      //     //     ),
-      //     //     PositionedDirectional(
-      //     //       top: 12.h,
-      //     //       end: 26.h,
-      //     //       child: Container(
-      //     //         height: 20.r,
-      //     //         width: 20.r,
-      //     //         decoration: BoxDecoration(
-      //     //           color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-      //     //           shape: BoxShape.circle,
-      //     //         ),
-      //     //         child: Center(
-      //     //           child: TextUtil(
-      //     //             text: cartNum,
-      //     //             color:
-      //     //                 Get.isDarkMode ? secondDarkColor : secondLightColor,
-      //     //             fontSize: 13.sp,
-      //     //             fontWeight: FontWeight.bold,
-      //     //             height: 1.5,
-      //     //           ),
-      //     //         ),
-      //     //       ),
-      //     //     ),
-      //     //   ],
-      //     // ),
-      //     child: ,
-      //   ),
-      // ),
-      Obx((){
-        return Badge(
-          badgeContent: TextUtil(text: _cartController.productsQuantity.toString(), fontSize: 13.sp, fontWeight: FontWeight.bold,),
-          badgeColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          position: BadgePosition.topEnd(top: 0, end: 3),
-          animationDuration: const Duration(milliseconds: 300),
-          animationType: BadgeAnimationType.slide,
-          child: IconButton(
-            icon: const Icon(IconBroken.Bag_2),
-            color: Get.isDarkMode ? mainDarkColor : secondaryColor,
-            iconSize: 32.0,
-            onPressed: (){
-              Get.toNamed(RoutesPath.cartView);
-            },
-          ),
-        );
-      }),
+      child: Obx(
+        () {
+          return Badge(
+            badgeColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
+            position: BadgePosition.topEnd(top: 0, end: 3),
+            animationDuration: const Duration(milliseconds: 300),
+            animationType: BadgeAnimationType.slide,
+            badgeContent: TextUtil(
+              text: _cartController.productsQuantity.toString(),
+              fontSize: 13.sp,
+              fontWeight: FontWeight.bold,
+            ),
+            child: IconButton(
+              icon: const Icon(IconBroken.Bag_2),
+              color: Get.isDarkMode ? mainDarkColor : secondaryColor,
+              iconSize: 32.0,
+              onPressed: () => Get.toNamed(RoutesPath.cartView),
+            ),
+          );
+        },
+      ),
     );
   }
 }

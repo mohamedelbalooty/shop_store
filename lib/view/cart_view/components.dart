@@ -217,7 +217,7 @@ class BuildCartBottomAppBar extends StatelessWidget {
                 TextUtil(
                   text: '\$${_cartController.totalPrice}',
                   fontSize: 15.sp,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
                 ),
               ],
@@ -232,9 +232,9 @@ class BuildCartBottomAppBar extends StatelessWidget {
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
                 ),
                 TextUtil(
-                  text: _cartController.cartProducts.keys.length.toString(),
+                  text: _cartController.productsQuantity.toString(),
                   fontSize: 15.sp,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
                 ),
               ],

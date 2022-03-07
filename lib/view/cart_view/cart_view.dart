@@ -11,6 +11,7 @@ class CartView extends StatelessWidget {
   CartView({Key? key}) : super(key: key);
 
   final _cartController = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +79,8 @@ class CartView extends StatelessWidget {
           ),
         ],
       ),
-      body: Obx((){
-        if(_cartController.cartProducts.isEmpty){
+      body: Obx(() {
+        if (_cartController.cartProducts.isEmpty) {
           return BuildEmptyUtil(
             image: 'assets/images/empty_cart.svg',
             height: 220.h,
@@ -93,14 +94,17 @@ class CartView extends StatelessWidget {
           itemBuilder: (_, index) {
             return Padding(
               padding: EdgeInsets.only(bottom: index == 4 ? 10.h : 0.0),
-              child: BuildCartProductItem(product: _cartController.cartProducts.keys.toList()[index], index: index,),
+              child: BuildCartProductItem(
+                product: _cartController.cartProducts.keys.toList()[index],
+                index: index,
+              ),
             );
           },
           separatorBuilder: (_, index) => verticalSpace2(),
         );
       }),
-      bottomNavigationBar: Obx((){
-        if(_cartController.cartProducts.isEmpty){
+      bottomNavigationBar: Obx(() {
+        if (_cartController.cartProducts.isEmpty) {
           return const SizedBox();
         }
         return BuildCartBottomAppBar();
@@ -108,4 +112,3 @@ class CartView extends StatelessWidget {
     );
   }
 }
-

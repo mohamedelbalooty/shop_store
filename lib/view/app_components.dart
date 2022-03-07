@@ -57,6 +57,7 @@ class TextUtil extends StatelessWidget {
   final TextDecoration? decoration;
   final TextAlign? textAlign;
   final TextOverflow? textOverflow;
+  final int? maxLines;
 
   const TextUtil({
     Key? key,
@@ -69,6 +70,7 @@ class TextUtil extends StatelessWidget {
     this.decoration,
     this.textAlign,
     this.textOverflow,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -85,6 +87,7 @@ class TextUtil extends StatelessWidget {
       ),
       textAlign: textAlign,
       overflow: textOverflow,
+      maxLines: maxLines,
     );
   }
 }
@@ -122,15 +125,13 @@ class BuildCircleButtonUtil extends StatelessWidget {
   final Function() onClick;
   final Color color;
   final Size size;
-  final double radius;
 
   const BuildCircleButtonUtil(
       {Key? key,
       required this.child,
       required this.onClick,
       this.color = mainLightColor,
-      this.size = const Size(150.0, 50.0),
-      this.radius = 5.0})
+      this.size = const Size(150.0, 50.0),})
       : super(key: key);
 
   @override

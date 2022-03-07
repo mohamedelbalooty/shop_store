@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:shop_store/model/product.dart';
+import 'package:shop_store/utils/helper/storage_helper.dart';
 
 class CartController extends GetxController {
   RxMap<Product, dynamic> cartProducts = <Product, dynamic>{}.obs;
@@ -61,7 +64,10 @@ class CartController extends GetxController {
         .reduce((value, element) => value + element);
   }
 
-  void deleteCart() => cartProducts.clear();
+  void deleteCart() {
+    cartProducts.clear();
+    productsQuantity.value = 0;
+  }
 
   void minimizeProductNumberFromCart({required Product product}) {
     if (cartProducts.containsKey(product) && cartProducts[product] == 1) {
@@ -90,11 +96,60 @@ class CartController extends GetxController {
           .obs;
       productSubTotalPrice = cartProducts.entries
           .map((element) => element.key.price * element.value)
-          .toList().obs;
+          .toList()
+          .obs;
       productsQuantity.value = cartProducts.entries
           .map((element) => element.value)
           .toList()
           .reduce((value, element) => value + element);
     }
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    Map<List<Product>, dynamic> data = {
+      [
+        Product(
+          id: 1,
+          title: 'yyy',
+          price: 3.0,
+          description: 'xxx',
+          category: 'ddd',
+          image: 'rrr',
+          rating: Rating(count: 3, rate: 9.0),
+        ),
+      ]: 1,
+      [
+        Product(
+          id: 2,
+          title: 'yyy',
+          price: 4.0,
+          description: 'xrxx',
+          category: 'ddrd',
+          image: 'rrrr',
+          rating: Rating(count: 3, rate: 9.0),
+        ),
+      ]: 2
+    };
+
+    // var z = data.entries.map((e) => e.key.map((e) => e.toMap()).toList()).toList();
+    // print(z);
+    // func(){
+    //   for(var item in z){
+    //     print('item => $item');
+    //   }
+    // }
+
+    // StorageHelper.setMapData(key: 'isCart', value: );
+  //   // Map? localCartProducts = StorageHelper.getMapData(key: 'isCart');
+  //   // if(localCartProducts != null){
+  //   //   var keys = localCartProducts.keys.map((element) => Product.fromMap(element)).toList();
+  //   //   // var value = localCartProducts.values.
+  //   //   // cartProducts = {
+  //   //   //
+  //   //   // };
+  //   // }
+  }
+
 }

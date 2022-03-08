@@ -9,6 +9,7 @@ import 'package:shop_store/model/product.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
 import 'package:shop_store/utils/routes/routes.dart';
+import 'package:shop_store/view/product_view/product_view.dart';
 import '../app_components.dart';
 
 class BuildBottomNavBarItem extends StatelessWidget {
@@ -137,152 +138,160 @@ class BuildProductItemUtil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _controller = Get.find<FavouriteController>();
+    final _favouriteController = Get.find<FavouriteController>();
     final _cartController = Get.find<CartController>();
     return Material(
       color: context.theme.backgroundColor,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-          boxShadow: [
-            BoxShadow(
-                color: Get.isDarkMode ? Colors.white12 : Colors.black12,
-                blurRadius: 2,
-                offset: const Offset(0.5, 0.5),
-                spreadRadius: 1.5),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BuildNetworkImageUtil(
-              image: product.image,
-              height: 120.h,
-              width: infinityWidth,
-            ),
-            verticalSpace1(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                    width: 120.0,
-                    child: Text(
-                      product.title,
-                      style: TextStyle(
-                        color:
-                            Get.isDarkMode ? secondLightColor : secondDarkColor,
-                        fontSize: 14.sp,
-                        height: 1.5,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  horizontalSpace1(),
-                  Obx(() {
-                    return IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      splashColor: transparent,
-                      hoverColor: transparent,
-                      focusColor: transparent,
-                      highlightColor: transparent,
-                      icon: const Icon(
-                        IconBroken.Heart,
-                        size: 26.0,
-                      ),
-                      color: _controller.isFavourite(productId: product.id)
-                          ? redColor
-                          : blackColor,
-                      onPressed: () {
-                        _controller.addToFavourite(
-                            products: products, productId: product.id);
-                      },
-                    );
-                  }),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextUtil(
-                    text: '\$${product.price}',
-                    fontSize: 16.sp,
-                    color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-                    fontWeight: FontWeight.bold,
-                    height: 1,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        product.rating.rate.floor() >= 5
-                            ? Icons.star
-                            : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 4
-                            ? Icons.star
-                            : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 3
-                            ? Icons.star
-                            : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 2
-                            ? Icons.star
-                            : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                      Icon(
-                        product.rating.rate.floor() >= 1
-                            ? Icons.star
-                            : Icons.star_border,
-                        size: 15.0,
-                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            InkWell(
-              onTap: () {
-                _cartController.addProductToCart(product: product);
-              },
-              child: Container(
-                height: 50.h,
+      child: GestureDetector(
+        onTap: () => Get.to(ProductView(product: product, products: products)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+            boxShadow: [
+              BoxShadow(
+                  color: Get.isDarkMode ? Colors.white12 : Colors.black12,
+                  blurRadius: 2,
+                  offset: const Offset(0.5, 0.5),
+                  spreadRadius: 1.5),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BuildNetworkImageUtil(
+                image: product.image,
+                height: 120.h,
                 width: infinityWidth,
-                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                child: Center(
-                  child: TextUtil(
-                    text: 'Add to cart',
-                    fontSize: 16.sp,
-                    color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-                    fontWeight: FontWeight.w500,
+              ),
+              verticalSpace1(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 50.h,
+                      width: 120.0,
+                      child: Text(
+                        product.title,
+                        style: TextStyle(
+                          color:
+                              Get.isDarkMode ? secondLightColor : secondDarkColor,
+                          fontSize: 14.sp,
+                          height: 1.5,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    horizontalSpace1(),
+                    Obx(() {
+                      return IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        splashColor: transparent,
+                        hoverColor: transparent,
+                        focusColor: transparent,
+                        highlightColor: transparent,
+                        icon: const Icon(
+                          IconBroken.Heart,
+                          size: 26.0,
+                        ),
+                        color: _favouriteController.isFavourite(productId: product.id)
+                            ? redColor
+                            : blackColor,
+                        onPressed: () {
+                          _favouriteController.addToFavourite(
+                              products: products, productId: product.id);
+                        },
+                      );
+                    }),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextUtil(
+                      text: '\$${product.price}',
+                      fontSize: 16.sp,
+                      color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+                      fontWeight: FontWeight.bold,
+                      height: 1,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          product.rating.rate.floor() >= 5
+                              ? Icons.star
+                              : Icons.star_border,
+                          size: 15.0,
+                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        ),
+                        Icon(
+                          product.rating.rate.floor() >= 4
+                              ? Icons.star
+                              : Icons.star_border,
+                          size: 15.0,
+                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        ),
+                        Icon(
+                          product.rating.rate.floor() >= 3
+                              ? Icons.star
+                              : Icons.star_border,
+                          size: 15.0,
+                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        ),
+                        Icon(
+                          product.rating.rate.floor() >= 2
+                              ? Icons.star
+                              : Icons.star_border,
+                          size: 15.0,
+                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        ),
+                        Icon(
+                          product.rating.rate.floor() >= 1
+                              ? Icons.star
+                              : Icons.star_border,
+                          size: 15.0,
+                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: () {
+                  _cartController.addProductToCart(product: product);
+                  showSnackBar(
+                    title: 'Cart details',
+                    message: 'You added this product successfully',
+                    position: SnackPosition.BOTTOM,
+                  );
+                },
+                child: Container(
+                  height: 50.h,
+                  width: infinityWidth,
+                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                  child: Center(
+                    child: TextUtil(
+                      text: 'Add to cart',
+                      fontSize: 16.sp,
+                      color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

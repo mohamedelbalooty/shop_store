@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/home_controller.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../app_components.dart';
 
 const List<String> salesBanner = [
@@ -26,7 +25,8 @@ class BuildHomeLoading extends StatelessWidget {
         children: [
           Padding(
             padding: symmetricHorizontalPadding1(),
-            child: RectangleShimmerLoadingUtil(height: 45.h, width: infinityWidth),
+            child:
+                RectangleShimmerLoadingUtil(height: 45.h, width: infinityWidth),
           ),
           verticalSpace2(),
           Padding(
@@ -83,7 +83,8 @@ class BuildHomeLoading extends StatelessWidget {
           verticalSpace2(),
           Padding(
             padding: symmetricHorizontalPadding1(),
-            child: RectangleShimmerLoadingUtil(height: 160.h, width: infinityWidth, raduis: 5.0),
+            child: RectangleShimmerLoadingUtil(
+                height: 160.h, width: infinityWidth, raduis: 5.0),
           ),
           verticalSpace2(),
           Row(
@@ -348,28 +349,5 @@ class BuildBannerWidget extends StatelessWidget {
         autoPlayCurve: Curves.easeIn,
       ),
     );
-  }
-}
-
-class BuildBannerIndicators extends StatelessWidget {
-  final HomeController controller;
-
-  const BuildBannerIndicators({Key? key, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (context) {
-      return AnimatedSmoothIndicator(
-        activeIndex: controller.selectedBanner,
-        count: salesBanner.length,
-        effect: SwapEffect(
-          activeDotColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          dotColor: Get.isDarkMode ? whiteColor : Colors.grey.shade400,
-          dotHeight: 12.r,
-          dotWidth: 12.r,
-        ),
-      );
-    });
   }
 }

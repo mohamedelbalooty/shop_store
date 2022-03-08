@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 double infinityHeight = double.infinity;
@@ -92,11 +93,34 @@ class TextUtil extends StatelessWidget {
   }
 }
 
+class BuildIndicatorsUtil extends StatelessWidget {
+  final int activeIndex, count;
+
+  const BuildIndicatorsUtil(
+      {Key? key, required this.activeIndex, required this.count})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSmoothIndicator(
+      activeIndex: activeIndex,
+      count: count,
+      effect: SwapEffect(
+        activeDotColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
+        dotColor: Get.isDarkMode ? whiteColor : Colors.grey.shade400,
+        dotHeight: 11.r,
+        dotWidth: 11.r,
+      ),
+    );
+  }
+}
+
 class BuildIconButtonUtil extends StatelessWidget {
   final IconData icon;
   final Color color;
   final double size;
   final BoxConstraints? constraints;
+  final EdgeInsetsGeometry padding;
   final Function() onClick;
 
   const BuildIconButtonUtil({
@@ -106,12 +130,14 @@ class BuildIconButtonUtil extends StatelessWidget {
     required this.onClick,
     this.size = 16.0,
     this.constraints,
+    this.padding = const EdgeInsets.all(8.0),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       constraints: constraints,
+      padding: padding,
       icon: Icon(icon),
       color: color,
       iconSize: size,
@@ -126,13 +152,13 @@ class BuildCircleButtonUtil extends StatelessWidget {
   final Color color;
   final Size size;
 
-  const BuildCircleButtonUtil(
-      {Key? key,
-      required this.child,
-      required this.onClick,
-      this.color = mainLightColor,
-      this.size = const Size(150.0, 50.0),})
-      : super(key: key);
+  const BuildCircleButtonUtil({
+    Key? key,
+    required this.child,
+    required this.onClick,
+    this.color = mainLightColor,
+    this.size = const Size(150.0, 50.0),
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +171,7 @@ class BuildCircleButtonUtil extends StatelessWidget {
         shape: MaterialStateProperty.all<CircleBorder>(
           const CircleBorder(),
         ),
+
         ///TO REMOVE ANY PADDING
         padding: MaterialStateProperty.all(EdgeInsets.zero),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -280,6 +307,58 @@ class BuildImageButtonUtil extends StatelessWidget {
         height: 35.r,
         width: 35.r,
         fit: BoxFit.fill,
+      ),
+    );
+  }
+}
+
+class BuildPopUpMenuButtonUtil extends StatelessWidget {
+  final List<String> entries;
+  final Widget icon;
+  final Function(String) onSelected;
+  final Function()? onCanceled;
+  final EdgeInsetsGeometry padding;
+
+  const BuildPopUpMenuButtonUtil({
+    Key? key,
+    required this.entries,
+    required this.icon,
+    required this.onSelected,
+    this.onCanceled,
+    this.padding = const EdgeInsets.all(8.0),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<PopupMenuEntry<String>> popEntry = [];
+    return SizedBox(
+      height: 32.0,
+      width: 20.0,
+      child: PopupMenuButton<String>(
+        padding: padding,
+        shape: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          borderSide: BorderSide(color: transparent),
+        ),
+        itemBuilder: (BuildContext context) {
+          popEntry.clear();
+          for (int i = 0; i < entries.length; i++) {
+            popEntry.add(
+              PopupMenuItem<String>(
+                value: entries[i],
+                child: Text(entries[i]),
+                textStyle: TextStyle(
+                  color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+                ),
+              ),
+            );
+          }
+          return popEntry;
+        },
+        onSelected: onSelected,
+        icon: icon,
       ),
     );
   }

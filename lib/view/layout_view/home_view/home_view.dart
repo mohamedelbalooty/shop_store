@@ -14,12 +14,10 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-
 class _HomeViewState extends State<HomeView> {
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
   final TextEditingController _searchController = TextEditingController();
   final _homeController = Get.find<HomeController>();
-
 
   Map<List<Product>, dynamic> data = {
     [
@@ -45,11 +43,13 @@ class _HomeViewState extends State<HomeView> {
       ),
     ]: 2
   };
+
   // var a = data.keys.map((e) => e).toList();
   // var x = data.keys.map((e) => e).toList().map((e) => e.toList().map((e) => e.runtimeType).runtimeType);
   // var y = data.values.map((e) => e).toList();
   // var r = z.map((e) => e.map((e) => Product.fromMap(e)).toList()).toList();
   Map<List<Product>, dynamic> newData = {};
+
   // newData[for(var i in a){return i;}] =
   // newData.addAll(a);
   // var xx = data.entries.map((e1) {
@@ -71,23 +71,28 @@ class _HomeViewState extends State<HomeView> {
   late List zz;
   late List tt;
   Map<List<Product>, dynamic> newGetData = {};
-  set(){
+
+  set() {
     z = data.entries.map((e) => e.key.map((e) => e.toMap()).toList()).toList();
     t = data.entries.map((e) => e.value).toList();
-    for(var i = 0; i<z.length; i++){
+    for (var i = 0; i < z.length; i++) {
       newMap.addAll({
-        z[i] : t[i],
+        z[i]: t[i],
       });
     }
     print(newMap);
   }
+
   late var ttt;
   late var yyy;
-  get(){
-    ttt = newMap.entries.map((e) => e.key.map((e) => Product.fromMap(e)).toList()).toList();
+
+  get() {
+    ttt = newMap.entries
+        .map((e) => e.key.map((e) => Product.fromMap(e)).toList())
+        .toList();
     yyy = newMap.entries.map((e) => e.value).toList();
     print(ttt);
-    for(int i =0; i<ttt.length ; i++){
+    for (int i = 0; i < ttt.length; i++) {
       newGetData.addAll({
         ttt[i]: yyy[i],
       });
@@ -158,7 +163,14 @@ class _HomeViewState extends State<HomeView> {
                   verticalSpace1(),
                   BuildBannerWidget(controller: _homeController),
                   verticalSpace2(),
-                  BuildBannerIndicators(controller: _homeController),
+                  GetBuilder<HomeController>(
+                    builder: (context) {
+                      return BuildIndicatorsUtil(
+                        count: salesBanner.length,
+                        activeIndex: _homeController.selectedBanner,
+                      );
+                    },
+                  ),
                   verticalSpace1(),
                   const BuildHomeTitleWidget(text: 'Products'),
                   verticalSpace1(),

@@ -13,7 +13,7 @@ import 'package:shop_store/view/welcome_view/welcome_view.dart';
 
 class Routes {
   // static const String initialRoute = RoutesPath.welcomeView;
-  static const String initialRoute = RoutesPath.productView;
+  static const String initialRoute = RoutesPath.homeView;
 
   static List<GetPage> routes = [
     GetPage(name: RoutesPath.welcomeView, page: () => const WelcomeView()),
@@ -51,10 +51,10 @@ class Routes {
       page: () => CartView(),
       binding: HomeBinding(),
     ),
-    GetPage(
-      name: RoutesPath.productView,
-      page: () => const ProductView(),
-    ),
+    // GetPage(
+    //   name: RoutesPath.productView,
+    //   page: () => ProductView(),
+    // ),
   ];
 }
 

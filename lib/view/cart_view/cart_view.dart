@@ -35,46 +35,58 @@ class CartView extends StatelessWidget {
             size: 24.0,
             color: Get.isDarkMode ? secondLightColor : secondaryColor,
             onClick: () {
-              Get.defaultDialog(
-                title: 'Delete cart products',
-                middleText: 'Are you sure you need to clear cart ?',
-                titleStyle: TextStyle(
-                  color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                middleTextStyle: TextStyle(
-                  color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-                  fontSize: 16.sp,
-                ),
-                confirm: BuildElevatedButtonUtil(
-                  child: TextUtil(
-                    text: 'Yes',
-                    color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                  size: Size(80.w, 30.h),
-                  onClick: () {
-                    _cartController.deleteCart();
-                    Get.back();
-                  },
-                ),
-                cancel: BuildElevatedButtonUtil(
-                  child: TextUtil(
-                    text: 'No',
-                    color: Get.isDarkMode ? secondDarkColor : secondLightColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                  size: Size(80.w, 30.h),
-                  onClick: () {
-                    Get.back();
-                  },
-                ),
-              );
+              _cartController.cartProducts.isNotEmpty
+                  ? Get.defaultDialog(
+                      title: 'Delete cart products',
+                      middleText: 'Are you sure you need to clear cart ?',
+                      titleStyle: TextStyle(
+                        color:
+                            Get.isDarkMode ? secondLightColor : secondDarkColor,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      middleTextStyle: TextStyle(
+                        color:
+                            Get.isDarkMode ? secondLightColor : secondDarkColor,
+                        fontSize: 16.sp,
+                      ),
+                      confirm: BuildElevatedButtonUtil(
+                        child: TextUtil(
+                          text: 'Yes',
+                          color: Get.isDarkMode
+                              ? secondDarkColor
+                              : secondLightColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        size: Size(80.w, 30.h),
+                        onClick: () {
+                          _cartController.deleteCart();
+                          Get.back();
+                        },
+                      ),
+                      cancel: BuildElevatedButtonUtil(
+                        child: TextUtil(
+                          text: 'No',
+                          color: Get.isDarkMode
+                              ? secondDarkColor
+                              : secondLightColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        size: Size(80.w, 30.h),
+                        onClick: () {
+                          Get.back();
+                        },
+                      ),
+                    )
+                  : showSnackBar(
+                      title: 'Cart details',
+                      message: 'Don\'t have products to delete theme!',
+                      position: SnackPosition.BOTTOM,
+                    );
             },
           ),
         ],

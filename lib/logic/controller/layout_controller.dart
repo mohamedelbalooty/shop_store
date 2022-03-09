@@ -31,7 +31,7 @@ class LayoutController extends GetxController {
 
   RxList<Widget> screens = <Widget>[
     const HomeView(),
-    const CategoriesView(),
+    CategoriesView(),
     FavouriteView(),
     const SettingsView(),
   ].obs;

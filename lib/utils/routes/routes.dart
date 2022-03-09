@@ -2,13 +2,14 @@ import 'package:get/get.dart';
 import 'package:shop_store/logic/binding/auth_binding.dart';
 import 'package:shop_store/logic/binding/home_binding.dart';
 import 'package:shop_store/logic/binding/layout_binding.dart';
+import 'package:shop_store/logic/binding/search_binding.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
 import 'package:shop_store/view/auth_view/login_view.dart';
 import 'package:shop_store/view/auth_view/signup_view.dart';
 import 'package:shop_store/view/auth_view/verification_view.dart';
 import 'package:shop_store/view/cart_view/cart_view.dart';
 import 'package:shop_store/view/layout_view/layout_view.dart';
-import 'package:shop_store/view/product_view/product_view.dart';
+import 'package:shop_store/view/search_view/search_view.dart';
 import 'package:shop_store/view/welcome_view/welcome_view.dart';
 
 class Routes {
@@ -38,23 +39,24 @@ class Routes {
       binding: AuthBinding(),
     ),
     GetPage(
-        name: RoutesPath.homeView,
-        page: () => const LayoutView(),
-        bindings: [
-          AuthBinding(),
-          LayoutBinding(),
-          HomeBinding(),
-          // FavouriteBinding(),
-        ]),
+      name: RoutesPath.homeView,
+      page: () => LayoutView(),
+      bindings: [
+        AuthBinding(),
+        LayoutBinding(),
+        HomeBinding(),
+      ],
+    ),
     GetPage(
       name: RoutesPath.cartView,
       page: () => CartView(),
       binding: HomeBinding(),
     ),
-    // GetPage(
-    //   name: RoutesPath.productView,
-    //   page: () => ProductView(),
-    // ),
+    GetPage(
+      name: RoutesPath.searchView,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+    ),
   ];
 }
 
@@ -67,7 +69,7 @@ class RoutesPath {
   static const String homeView = '/homeView';
   static const String cartView = '/cartView';
   static const String productView = '/productView';
-// static const String verificationView = '/verificationView';
+  static const String searchView = '/searchView';
 // static const String verificationView = '/verificationView';
 // static const String verificationView = '/verificationView';
 

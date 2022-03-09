@@ -24,7 +24,7 @@ class HomeService {
 
   Future<Either<List<Product>, ErrorResult>> getHomeProducts() async {
     try {
-      var response = await DioHelper.getData(url: 'products?limit=10');
+      var response = await DioHelper.getData(url: 'products');
       if (response.statusCode == 200) {
         List<dynamic> data = response.data;
         List<Product> products = data.map((e) => Product.fromMap(e)).toList();
@@ -35,19 +35,24 @@ class HomeService {
     } on DioError catch (dioException) {
       return Right(
           dioError(errorType: dioException, response: dioException.response));
-      // if (dioException.type == DioErrorType.response) {
-      //   return Right(returnResponse(dioException.response!));
-      // } else if(dioException.type == DioErrorType.other) {
-      //   ErrorResult errorResult = const ErrorResult(
-      //       errorMessage: 'error  Message',
-      //       errorImage: 'assets/images/cover.png');
-      //   return Right(errorResult);
-      // }else{
-      //   ErrorResult errorResult = const ErrorResult(
-      //       errorMessage: 'errorMessage',
-      //       errorImage: 'assets/images/cover.png');
-      //   return Right(errorResult);
-      // }
+    }
+  }
+
+  Future<Either<List<Product>, ErrorResult>> getProductsByCategory(
+      {required String categoryKey}) async {
+    try {
+      var response =
+          await DioHelper.getData(url: 'products/category/$categoryKey');
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        List<Product> products = data.map((e) => Product.fromMap(e)).toList();
+        return Left(products);
+      } else {
+        return Right(returnResponse(response));
+      }
+    } on DioError catch (dioException) {
+      return Right(
+          dioError(errorType: dioException, response: dioException.response));
     }
   }
 }

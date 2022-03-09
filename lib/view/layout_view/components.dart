@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/cart_controller.dart';
 import 'package:shop_store/logic/controller/favourite_controller.dart';
 import 'package:shop_store/logic/controller/layout_controller.dart';
+import 'package:shop_store/model/category.dart';
 import 'package:shop_store/model/product.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
@@ -297,3 +298,26 @@ class BuildProductItemUtil extends StatelessWidget {
     );
   }
 }
+
+const List<Category> categories = [
+  Category(
+      id: 1,
+      name: 'Electronics',
+      image:
+      'https://cff2.earth.com/uploads/2020/09/01004645/shutterstock_2850401842-960x640.jpg'),
+  Category(
+      id: 2,
+      name: 'Jewelry',
+      image:
+      'https://i.pinimg.com/736x/3c/65/a8/3c65a84b72e5b8d265df4b98a453faa5.jpg'),
+  Category(
+      id: 3,
+      name: 'Men\'s clothes',
+      image:
+      'https://i.pinimg.com/736x/53/b8/ab/53b8abcfc1801dd798ec1ae0e0d5c01b--wallpaper-desktop-desktop-backgrounds.jpg'),
+  Category(
+      id: 4,
+      name: 'Women clothes',
+      image:
+      'https://data.whicdn.com/images/334050263/original.jpg?t=1565743455'),
+];

@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/home_controller.dart';
+import 'package:shop_store/logic/controller/layout_controller.dart';
+import 'package:shop_store/model/category.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
+import 'package:shop_store/utils/routes/routes.dart';
 import '../../app_components.dart';
 
 const List<String> salesBanner = [
@@ -13,6 +16,209 @@ const List<String> salesBanner = [
   'https://i.pinimg.com/originals/3a/de/2c/3ade2c45ad91861f038700497430e99c.jpg',
   'https://i.pinimg.com/originals/ce/99/0c/ce990c0668729dc4bafeb093ecb964dc.jpg'
 ];
+
+class BuildSearchBarWidget extends StatelessWidget {
+  const BuildSearchBarWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: context.theme.backgroundColor,
+      child: Padding(
+        padding: symmetricHorizontalPadding1(),
+        child: InkWell(
+          onTap: () => Get.toNamed(RoutesPath.searchView),
+          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          child: Container(
+            height: 45.h,
+            width: infinityWidth,
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            decoration: BoxDecoration(
+              color: transparent,
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              border: Border.all(
+                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                width: 1.5,
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  IconBroken.Search,
+                  size: 24.0,
+                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                ),
+                horizontalSpace2(),
+                TextUtil(
+                  text: 'Search',
+                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                const Spacer(),
+                Icon(
+                  IconBroken.Arrow___Down_2,
+                  size: 24.0,
+                  color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BuildHomeTitleWidget extends StatelessWidget {
+  final String text;
+
+  const BuildHomeTitleWidget({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: context.theme.backgroundColor,
+      child: Padding(
+        padding: symmetricHorizontalPadding1(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TextUtil(
+              text: text,
+              fontSize: 18.sp,
+              color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildHomeCategoryTitle extends StatelessWidget {
+  BuildHomeCategoryTitle({Key? key}) : super(key: key);
+  final _layoutController = Get.find<LayoutController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: context.theme.backgroundColor,
+      child: Padding(
+        padding: symmetricHorizontalPadding1(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            TextUtil(
+              text: 'Categories',
+              fontSize: 18.sp,
+              color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+              fontWeight: FontWeight.bold,
+            ),
+            InkWell(
+              onTap: () => _layoutController.onItemTapped(1),
+              child: TextUtil(
+                text: 'See all',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildHomeCategoryWidget extends StatelessWidget {
+  final Category category;
+  final EdgeInsetsGeometry margin;
+  final Function() onClick;
+
+  const BuildHomeCategoryWidget(
+      {Key? key, required this.margin, required this.category, required this.onClick,})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 110.h,
+      width: 110.w,
+      margin: margin,
+      padding: const EdgeInsets.all(1.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+        border: Border.all(color: Get.isDarkMode ? mainDarkColor : mainLightColor),
+      ),
+      child: InkWell(
+        onTap: onClick,
+        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          child: BuildNetworkImageUtil(
+            image: category.image,
+            height: 100.h,
+            width: 100.w,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BuildBannerWidget extends StatelessWidget {
+  final HomeController controller;
+
+  const BuildBannerWidget({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: salesBanner.length,
+      itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+        return Container(
+          height: 160.h,
+          width: 250.w,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5.0),
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(5.0),
+            ),
+            child: BuildNetworkImageUtil(
+              height: ScreenUtil().setHeight(160),
+              width: ScreenUtil().setWidth(250),
+              image: salesBanner[index],
+            ),
+          ),
+        );
+      },
+      options: CarouselOptions(
+        onPageChanged: (int currentIndex, reason) {
+          controller.onBannerChanged(currentIndex);
+        },
+        initialPage: controller.selectedBanner,
+        height: ScreenUtil().setHeight(160),
+        aspectRatio: 1.0,
+        disableCenter: true,
+        autoPlay: false,
+        enlargeCenterPage: true,
+        enableInfiniteScroll: true,
+        pauseAutoPlayOnTouch: true,
+        autoPlayAnimationDuration: const Duration(milliseconds: 2200),
+        autoPlayCurve: Curves.easeIn,
+      ),
+    );
+  }
+}
 
 class BuildHomeLoading extends StatelessWidget {
   const BuildHomeLoading({Key? key}) : super(key: key);
@@ -26,7 +232,7 @@ class BuildHomeLoading extends StatelessWidget {
           Padding(
             padding: symmetricHorizontalPadding1(),
             child:
-                RectangleShimmerLoadingUtil(height: 45.h, width: infinityWidth),
+                RectangleShimmerLoadingUtil(height: 48.h, width: infinityWidth),
           ),
           verticalSpace2(),
           Padding(
@@ -132,7 +338,7 @@ class BuildHomeLoading extends StatelessWidget {
             padding: symmetricHorizontalPadding1(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent: 200.h,
+                mainAxisExtent: 180.h,
                 crossAxisSpacing: 10.w,
                 mainAxisSpacing: 10.w),
             itemCount: 4,
@@ -162,191 +368,6 @@ class BuildHomeLoading extends StatelessWidget {
             },
           )
         ],
-      ),
-    );
-  }
-}
-
-class BuildSearchWidget extends StatelessWidget {
-  final TextEditingController controller;
-
-  const BuildSearchWidget({Key? key, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: symmetricHorizontalPadding1(),
-      child: TextField(
-        controller: controller,
-        onChanged: (String? value) {},
-        cursorColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
-        style: TextStyle(
-          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          fontSize: 14.sp,
-        ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-          label: const Text('Search'),
-          labelStyle: TextStyle(
-              color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-              height: 2),
-          prefixIcon: Icon(
-            IconBroken.Search,
-            size: 24.0,
-            color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          ),
-          border: _border(),
-          enabledBorder: _border(),
-          focusedBorder: _border(),
-          errorBorder: _border(),
-          focusedErrorBorder: _border(),
-        ),
-      ),
-    );
-  }
-
-  OutlineInputBorder _border() => OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          width: 1.5,
-        ),
-      );
-}
-
-class BuildHomeTitleWidget extends StatelessWidget {
-  final String text;
-
-  const BuildHomeTitleWidget({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: context.theme.backgroundColor,
-      child: Padding(
-        padding: symmetricHorizontalPadding1(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TextUtil(
-              text: text,
-              fontSize: 18.sp,
-              color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BuildHomeCategoryTitle extends StatelessWidget {
-  const BuildHomeCategoryTitle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: context.theme.backgroundColor,
-      child: Padding(
-        padding: symmetricHorizontalPadding1(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          textBaseline: TextBaseline.alphabetic,
-          children: [
-            TextUtil(
-              text: 'Categories',
-              fontSize: 18.sp,
-              color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-              fontWeight: FontWeight.bold,
-            ),
-            InkWell(
-              onTap: () {},
-              child: TextUtil(
-                text: 'See all',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-                color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BuildHomeCategoryWidget extends StatelessWidget {
-  final EdgeInsetsGeometry margin;
-
-  const BuildHomeCategoryWidget({Key? key, required this.margin})
-      : super(key: key);
-
-  final String testImage =
-      'https://i0.wp.com/psdfreedownload.com/wp-content/uploads/2017/10/Free_Fashion_-Clothes_Banner_Psd_Full_Preview.jpg';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.h,
-      width: 100.w,
-      margin: margin,
-      child: BuildNetworkImageUtil(
-        image: testImage,
-        height: ScreenUtil().setHeight(100),
-        width: ScreenUtil().setWidth(100),
-      ),
-    );
-  }
-}
-
-class BuildBannerWidget extends StatelessWidget {
-  final HomeController controller;
-
-  const BuildBannerWidget({Key? key, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: salesBanner.length,
-      itemBuilder: (BuildContext context, int index, int pageViewIndex) {
-        return Container(
-          height: 160.h,
-          width: 250.w,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-            child: BuildNetworkImageUtil(
-              height: ScreenUtil().setHeight(160),
-              width: ScreenUtil().setWidth(250),
-              image: salesBanner[index],
-            ),
-          ),
-        );
-      },
-      options: CarouselOptions(
-        onPageChanged: (int currentIndex, reason) {
-          controller.onBannerChanged(currentIndex);
-        },
-        initialPage: controller.selectedBanner,
-        height: ScreenUtil().setHeight(160),
-        aspectRatio: 1.0,
-        disableCenter: true,
-        autoPlay: false,
-        enlargeCenterPage: true,
-        enableInfiniteScroll: true,
-        pauseAutoPlayOnTouch: true,
-        autoPlayAnimationDuration: const Duration(milliseconds: 2200),
-        autoPlayCurve: Curves.easeIn,
       ),
     );
   }

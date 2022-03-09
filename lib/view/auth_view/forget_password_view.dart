@@ -31,9 +31,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
             Container(
               height: infinityHeight,
               width: infinityWidth,
-              decoration: BoxDecoration(
-                color: blackColor.withOpacity(0.2),
-              ),
+              color: blackColor.withOpacity(0.2),
               child: SingleChildScrollView(
                 child: Form(
                   key: _globalKey,

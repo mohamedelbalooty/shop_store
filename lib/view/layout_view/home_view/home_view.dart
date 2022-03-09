@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/home_controller.dart';
 import 'package:shop_store/model/product.dart';
+import 'package:shop_store/view/category_view/products_by_category_view.dart';
 import '../../app_components.dart';
 import '../components.dart';
 import 'components.dart';
@@ -16,7 +17,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
-  final TextEditingController _searchController = TextEditingController();
   final _homeController = Get.find<HomeController>();
 
   Map<List<Product>, dynamic> data = {
@@ -117,10 +117,10 @@ class _HomeViewState extends State<HomeView> {
       body: Obx(
         () {
           if (_homeController.categoryIsLoading.value ||
-              _homeController.productsIsLoading.value) {
+              _homeController.homeProductsIsLoading.value) {
             return const BuildHomeLoading();
           } else if (_homeController.categoryIsError.value ||
-              _homeController.productsIsError.value) {
+              _homeController.homeProductsIsError.value) {
             return BuildErrorUtil(
               height: 220.h,
               width: 220.w,
@@ -140,21 +140,28 @@ class _HomeViewState extends State<HomeView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const BuildSearchBarWidget(),
                   verticalSpace1(),
-                  BuildSearchWidget(controller: _searchController),
-                  verticalSpace1(),
-                  const BuildHomeCategoryTitle(),
+                  BuildHomeCategoryTitle(),
                   verticalSpace1(),
                   SizedBox(
                     height: 100.h,
                     width: infinityWidth,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _homeController.categories.length,
+                      itemCount: categories.length,
                       itemBuilder: (_, index) => BuildHomeCategoryWidget(
-                          margin: index == 0
-                              ? EdgeInsetsDirectional.only(start: 10.w)
-                              : EdgeInsets.zero),
+                        category: categories[index],
+                        margin: index == 0
+                            ? EdgeInsetsDirectional.only(start: 10.w)
+                            : index == categories.length - 1
+                                ? EdgeInsetsDirectional.only(end: 10.w)
+                                : EdgeInsets.zero,
+                        onClick: () {
+                          _homeController.getProductsByCategory(categoryKey: _homeController.categories[index]);
+                          Get.to(ProductsByCategoryView(categoryName: categories[index].name));
+                        },
+                      ),
                       separatorBuilder: (_, index) => horizontalSpace3(),
                     ),
                   ),
@@ -183,11 +190,11 @@ class _HomeViewState extends State<HomeView> {
                         mainAxisExtent: 250.h,
                         crossAxisSpacing: 10.w,
                         mainAxisSpacing: 10.w),
-                    itemCount: _homeController.products.length,
+                    itemCount: 10,
                     itemBuilder: (_, index) {
                       return BuildProductItemUtil(
-                        products: _homeController.products,
-                        product: _homeController.products[index],
+                        products: _homeController.homeProducts,
+                        product: _homeController.homeProducts[index],
                       );
                     },
                   ),
@@ -199,11 +206,5 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
   }
 }

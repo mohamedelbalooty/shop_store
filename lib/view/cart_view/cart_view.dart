@@ -16,19 +16,8 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
-      appBar: AppBar(
-        title: TextUtil(
-          text: 'Cart items',
-          fontSize: 20.sp,
-          color: Get.isDarkMode ? secondLightColor : secondaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-        leading: BuildIconButtonUtil(
-          icon: IconBroken.Arrow___Left,
-          size: 24.0,
-          color: Get.isDarkMode ? secondLightColor : secondaryColor,
-          onClick: () => Get.back(),
-        ),
+      appBar: buildAppBarUtil(
+        title: 'Cart items',
         actions: [
           BuildIconButtonUtil(
             icon: IconBroken.Delete,
@@ -115,12 +104,14 @@ class CartView extends StatelessWidget {
           separatorBuilder: (_, index) => verticalSpace2(),
         );
       }),
-      bottomNavigationBar: Obx(() {
-        if (_cartController.cartProducts.isEmpty) {
-          return const SizedBox();
-        }
-        return BuildCartBottomAppBar();
-      }),
+      bottomNavigationBar: Obx(
+        () {
+          if (_cartController.cartProducts.isEmpty) {
+            return const SizedBox();
+          }
+          return BuildCartBottomAppBar();
+        },
+      ),
     );
   }
 }

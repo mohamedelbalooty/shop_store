@@ -20,9 +20,7 @@ class WelcomeView extends StatelessWidget {
             Container(
               height: infinityHeight,
               width: infinityWidth,
-              decoration: BoxDecoration(
-                color: blackColor.withOpacity(0.2),
-              ),
+              color: blackColor.withOpacity(0.2),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(

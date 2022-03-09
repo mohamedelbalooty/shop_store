@@ -48,20 +48,20 @@ class CartController extends GetxController {
 
   void deleteProductFromCart({required Product product}) {
     cartProducts.removeWhere((key, value) => key == product);
-    totalPrice = cartProducts.entries
+    totalPrice = cartProducts.isNotEmpty ? cartProducts.entries
         .map((element) => element.key.price * element.value)
         .toList()
         .reduce((value, element) => value + element)
         .roundToDouble()
-        .obs;
-    productSubTotalPrice = cartProducts.entries
+        .obs : 0.0.obs;
+    productSubTotalPrice = cartProducts.isNotEmpty ? cartProducts.entries
         .map((element) => element.key.price * element.value)
         .toList()
-        .obs;
-    productsQuantity.value = cartProducts.entries
+        .obs : [].obs;
+    productsQuantity.value = cartProducts.isNotEmpty ? cartProducts.entries
         .map((element) => element.value)
         .toList()
-        .reduce((value, element) => value + element);
+        .reduce((value, element) => value + element) : 0;
   }
 
   void deleteCart() {
@@ -72,36 +72,36 @@ class CartController extends GetxController {
   void minimizeProductNumberFromCart({required Product product}) {
     if (cartProducts.containsKey(product) && cartProducts[product] == 1) {
       cartProducts.removeWhere((key, value) => key == product);
-      totalPrice = cartProducts.entries
+      totalPrice = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.key.price * element.value)
           .toList()
           .reduce((value, element) => value + element)
           .roundToDouble()
-          .obs;
-      productSubTotalPrice = cartProducts.entries
+          .obs :0.0.obs;
+      productSubTotalPrice = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.key.price * element.value)
           .toList()
-          .obs;
-      productsQuantity.value = cartProducts.entries
+          .obs : [].obs;
+      productsQuantity.value = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.value)
           .toList()
-          .reduce((value, element) => value + element);
+          .reduce((value, element) => value + element) : 0;
     } else {
       cartProducts[product] -= 1;
-      totalPrice = cartProducts.entries
+      totalPrice = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.key.price * element.value)
           .toList()
           .reduce((value, element) => value + element)
           .roundToDouble()
-          .obs;
-      productSubTotalPrice = cartProducts.entries
+          .obs :0.0.obs;
+      productSubTotalPrice = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.key.price * element.value)
           .toList()
-          .obs;
-      productsQuantity.value = cartProducts.entries
+          .obs : [].obs;
+      productsQuantity.value = cartProducts.isNotEmpty ? cartProducts.entries
           .map((element) => element.value)
           .toList()
-          .reduce((value, element) => value + element);
+          .reduce((value, element) => value + element) : 0;
     }
   }
 

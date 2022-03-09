@@ -34,9 +34,7 @@ class _SignUpViewState extends State<SignUpView> {
             Container(
               height: infinityHeight,
               width: infinityWidth,
-              decoration: BoxDecoration(
-                color: blackColor.withOpacity(0.2),
-              ),
+              color: blackColor.withOpacity(0.2),
               child: SingleChildScrollView(
                 child: Form(
                   key: _globalKey,

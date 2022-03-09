@@ -12,13 +12,17 @@ class HomeController extends GetxController {
   }
 
   RxList<String> categories = <String>[].obs;
-  RxList<Product> products = <Product>[].obs;
+  RxList<Product> homeProducts = <Product>[].obs;
+  RxList<Product> productsByCategory = <Product>[].obs;
+
   Rx<ErrorResult> error =
       const ErrorResult(errorMessage: '', errorImage: '').obs;
   RxBool categoryIsLoading = true.obs;
-  RxBool productsIsLoading = true.obs;
+  RxBool homeProductsIsLoading = true.obs;
+  RxBool productsByCategoryIsLoading = true.obs;
   RxBool categoryIsError = false.obs;
-  RxBool productsIsError = false.obs;
+  RxBool homeProductsIsError = false.obs;
+  RxBool productsByCategoryIsError = false.obs;
 
   @override
   void onInit() {
@@ -46,17 +50,32 @@ class HomeController extends GetxController {
   }
 
   Future<void> getHomeProducts() async {
-    productsIsLoading(true);
-    productsIsError(false);
-    products.clear();
+    homeProductsIsLoading(true);
+    homeProductsIsError(false);
+    homeProducts.clear();
     await _service.getHomeProducts().then((value) {
       value.fold((left) {
-        products.addAll(left);
-        productsIsLoading(false);
+        homeProducts.addAll(left);
+        homeProductsIsLoading(false);
       }, (right) {
         error.value = right;
-        productsIsLoading(false);
-        productsIsError(true);
+        homeProductsIsLoading(false);
+        homeProductsIsError(true);
+      });
+    });
+  }
+
+  Future<void> getProductsByCategory({required String categoryKey}) async {
+    productsByCategoryIsLoading(true);
+    productsByCategory.clear();
+    _service.getProductsByCategory(categoryKey: categoryKey).then((value) {
+      value.fold((left) {
+        productsByCategory.addAll(left);
+        productsByCategoryIsLoading(false);
+      }, (right) {
+        error = right.obs;
+        productsByCategoryIsLoading(false);
+        productsByCategoryIsError(true);
       });
     });
   }

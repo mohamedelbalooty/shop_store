@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:shop_store/utils/icon_broken.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -330,6 +331,7 @@ class BuildPopUpMenuButtonUtil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///You can replace String type with any type you want like Student object if you want to show any thing in this object attribute
     List<PopupMenuEntry<String>> popEntry = [];
     return SizedBox(
       height: 32.0,
@@ -660,13 +662,30 @@ class BuildEmptyUtil extends StatelessWidget {
   }
 }
 
+AppBar buildAppBarUtil({List<Widget>? actions, required String title}){
+  return AppBar(
+    title: TextUtil(
+      text: title,
+      fontSize: 20.sp,
+      color: Get.isDarkMode ? secondLightColor : secondaryColor,
+      fontWeight: FontWeight.bold,
+    ),
+    leading: BuildIconButtonUtil(
+      icon: IconBroken.Arrow___Left,
+      size: 24.0,
+      color: Get.isDarkMode ? secondLightColor : secondaryColor,
+      onClick: () => Get.back(),
+    ),
+  );
+}
+
 SnackbarController showSnackBar(
     {required String title, required String message, SnackPosition? position}) {
   return Get.snackbar(
     title,
     message,
     snackPosition: position,
-    backgroundColor: mainLightColor,
+    backgroundColor: Get.isDarkMode ? mainDarkColor : mainLightColor,
     borderRadius: 5.0,
     padding: symmetricHorizontalPadding1(),
     margin: const EdgeInsets.all(10),

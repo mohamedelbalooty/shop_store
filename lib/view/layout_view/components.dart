@@ -201,7 +201,7 @@ class BuildProductItemUtil extends StatelessWidget {
                         ),
                         color: _favouriteController.isFavourite(productId: product.id)
                             ? redColor
-                            : blackColor,
+                            : secondaryColor,
                         onPressed: () {
                           _favouriteController.addToFavourite(
                               products: products, productId: product.id);

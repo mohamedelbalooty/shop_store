@@ -676,6 +676,7 @@ AppBar buildAppBarUtil({List<Widget>? actions, required String title}){
       color: Get.isDarkMode ? secondLightColor : secondaryColor,
       onClick: () => Get.back(),
     ),
+    actions: actions,
   );
 }
 

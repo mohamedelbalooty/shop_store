@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shop_store/utils/localization/localization.dart';
 import 'package:shop_store/utils/routes/routes.dart';
 import 'logic/controller/theme_controller.dart';
 import 'utils/colors.dart';
@@ -30,6 +31,9 @@ class ShopStore extends StatelessWidget {
         title: 'Shop store',
         initialRoute: Routes.initialRoute,
         getPages: Routes.routes,
+        locale: const Locale('en'),
+        fallbackLocale: const Locale('en'),
+        translations: AppLocalization(),
         theme: ThemeData(
           primaryColor: mainLightColor,
           primarySwatch: Colors.pink,

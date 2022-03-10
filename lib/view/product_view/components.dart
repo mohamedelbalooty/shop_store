@@ -11,44 +11,49 @@ import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/utils/icon_broken.dart';
 import 'package:shop_store/utils/routes/routes.dart';
 import '../app_components.dart';
+import 'image_view.dart';
 
 class BuildImageSlider extends StatelessWidget {
   final String image;
   final Function(int, CarouselPageChangedReason) onPageChanged;
 
-  const BuildImageSlider({Key? key, required this.onPageChanged, required this.image})
+  const BuildImageSlider(
+      {Key? key, required this.onPageChanged, required this.image})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double imageHeight = MediaQuery.of(context).size.height * 0.55;
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-            width: 3.0,
+    return InkWell(
+      onTap: () => Get.to(ImageView(image: image)),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+              width: 3.0,
+            ),
           ),
         ),
-      ),
-      child: CarouselSlider.builder(
-        itemCount: 3,
-        itemBuilder: (_, index, currentIndex) {
-          return Image.network(
-            image,
-            fit: BoxFit.fill,
+        child: CarouselSlider.builder(
+          itemCount: 3,
+          itemBuilder: (_, index, currentIndex) {
+            return Image.network(
+              image,
+              fit: BoxFit.fill,
+              height: imageHeight,
+              width: infinityWidth,
+            );
+          },
+          options: CarouselOptions(
             height: imageHeight,
-            width: infinityWidth,
-          );
-        },
-        options: CarouselOptions(
-          height: imageHeight,
-          initialPage: 0,
-          autoPlay: true,
-          viewportFraction: 1,
-          aspectRatio: 1,
-          autoPlayAnimationDuration: const Duration(milliseconds: 2000),
-          onPageChanged: onPageChanged,
+            initialPage: 0,
+            autoPlay: true,
+            viewportFraction: 1,
+            aspectRatio: 1,
+            autoPlayAnimationDuration: const Duration(milliseconds: 1500),
+            onPageChanged: onPageChanged,
+          ),
         ),
       ),
     );
@@ -201,7 +206,8 @@ class BuildProductAppBarWidget extends StatelessWidget {
   final String image;
   final ProductController controller;
 
-  const BuildProductAppBarWidget({Key? key, required this.controller, required this.image})
+  const BuildProductAppBarWidget(
+      {Key? key, required this.controller, required this.image})
       : super(key: key);
 
   @override
@@ -308,7 +314,7 @@ class BuildProductDetailsWidget extends StatelessWidget {
                     color:
                         _favouriteController.isFavourite(productId: product.id)
                             ? redColor
-                            : blackColor,
+                            : secondaryColor,
                     size: 26.0,
                     constraints: const BoxConstraints(),
                     padding: EdgeInsets.zero,
@@ -320,17 +326,27 @@ class BuildProductDetailsWidget extends StatelessWidget {
                 }),
               ],
             ),
-            const BuildSizeWidget(),
+            product.category == "men's clothing" ||
+                    product.category == "women's clothing"
+                ? const BuildSizeWidget()
+                : const SizedBox(),
             Row(
               children: [
-                TextUtil(
-                  text: 'Colors',
-                  color: Get.isDarkMode ? secondLightColor : secondDarkColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                product.category == "men's clothing" ||
+                        product.category == "women's clothing"
+                    ? TextUtil(
+                        text: 'Colors',
+                        color:
+                            Get.isDarkMode ? secondLightColor : secondDarkColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      )
+                    : const SizedBox(),
                 horizontalSpace3(),
-                const BuildColorPickerWidget(),
+                product.category == "men's clothing" ||
+                        product.category == "women's clothing"
+                    ? const BuildColorPickerWidget()
+                    : const SizedBox(),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

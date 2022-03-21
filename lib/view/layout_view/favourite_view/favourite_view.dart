@@ -19,13 +19,13 @@ class FavouriteView extends StatelessWidget {
         if (_favouriteController.favouriteProducts.isEmpty) {
           return BuildEmptyUtil(
             image: 'assets/images/empty_favourite.svg',
-            message: 'Favourite list is Empty',
+            message: 'empty_product'.tr,
             height: 220.h,
             width: 220.w,
           );
         }
         return GridView.builder(
-          padding: symmetricHorizontalPadding1(),
+          padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 2.h, bottom: 5.h),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: isPortrait ? 2 : 3,
               mainAxisExtent: 250.h,

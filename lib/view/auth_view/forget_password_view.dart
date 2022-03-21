@@ -68,7 +68,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                         const BuildLogoUtil(),
                         verticalSpace3(),
                         Text(
-                          'If you want to recover your account, then please provide your email id below.',
+                          'recover_password'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             color: whiteColor,
@@ -78,14 +78,14 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                         ),
                         verticalSpace3(),
                         BuildUnderlinedTextFormField(
-                          hint: 'Email',
+                          hint: 'email'.tr,
                           controller: _email,
                           validate: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your email!';
+                              return 'email_verify'.tr;
                             } else if (!RegExp(validationEmail)
                                 .hasMatch(value)) {
-                              return 'Enter valid email!';
+                              return 'valid_email_verify'.tr;
                             }
                             return null;
                           },
@@ -95,14 +95,13 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                           return BuildElevatedButtonUtil(
                             child: !_controller.isLoading
                                 ? TextUtil(
-                                    text: 'Send'.toUpperCase(),
+                                    text: 'send'.tr.toUpperCase(),
                                     fontSize: 20.sp,
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
                                 : const BuildCircularLoadingUtil(),
-                            color:
-                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                            color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),
                             onClick: () async {

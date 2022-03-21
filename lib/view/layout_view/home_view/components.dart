@@ -30,7 +30,7 @@ class BuildSearchBarWidget extends StatelessWidget {
           onTap: () => Get.toNamed(RoutesPath.searchView),
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           child: Container(
-            height: 45.h,
+            height: 48.h,
             width: infinityWidth,
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             decoration: BoxDecoration(
@@ -51,7 +51,7 @@ class BuildSearchBarWidget extends StatelessWidget {
                 ),
                 horizontalSpace2(),
                 TextUtil(
-                  text: 'Search',
+                  text: 'search'.tr,
                   color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -113,7 +113,7 @@ class BuildHomeCategoryTitle extends StatelessWidget {
           textBaseline: TextBaseline.alphabetic,
           children: [
             TextUtil(
-              text: 'Categories',
+              text: 'categories'.tr,
               fontSize: 18.sp,
               color: Get.isDarkMode ? secondLightColor : secondDarkColor,
               fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class BuildHomeCategoryTitle extends StatelessWidget {
             InkWell(
               onTap: () => _layoutController.onItemTapped(1),
               child: TextUtil(
-                text: 'See all',
+                text: 'all'.tr,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
                 color: Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -209,11 +209,11 @@ class BuildBannerWidget extends StatelessWidget {
         height: ScreenUtil().setHeight(160),
         aspectRatio: 1.0,
         disableCenter: true,
-        autoPlay: false,
+        autoPlay: true,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
         pauseAutoPlayOnTouch: true,
-        autoPlayAnimationDuration: const Duration(milliseconds: 2200),
+        autoPlayAnimationDuration: const Duration(milliseconds: 1500),
         autoPlayCurve: Curves.easeIn,
       ),
     );

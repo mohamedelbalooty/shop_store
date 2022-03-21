@@ -3,6 +3,8 @@ import 'package:shop_store/logic/binding/auth_binding.dart';
 import 'package:shop_store/logic/binding/home_binding.dart';
 import 'package:shop_store/logic/binding/layout_binding.dart';
 import 'package:shop_store/logic/binding/search_binding.dart';
+import 'package:shop_store/utils/constants.dart';
+import 'package:shop_store/utils/helper/storage_helper.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
 import 'package:shop_store/view/auth_view/login_view.dart';
 import 'package:shop_store/view/auth_view/signup_view.dart';
@@ -13,8 +15,9 @@ import 'package:shop_store/view/search_view/search_view.dart';
 import 'package:shop_store/view/welcome_view/welcome_view.dart';
 
 class Routes {
-  // static const String initialRoute = RoutesPath.welcomeView;
-  static const String initialRoute = RoutesPath.homeView;
+  static String initialRoute = StorageHelper.getBoolData(key: loginKey)
+      ? RoutesPath.homeView
+      : RoutesPath.welcomeView;
 
   static List<GetPage> routes = [
     GetPage(name: RoutesPath.welcomeView, page: () => const WelcomeView()),
@@ -33,11 +36,11 @@ class Routes {
       page: () => const ForgetPasswordView(),
       binding: AuthBinding(),
     ),
-    GetPage(
-      name: RoutesPath.verificationView,
-      page: () => const VerificationView(),
-      binding: AuthBinding(),
-    ),
+    // GetPage(
+    //   name: RoutesPath.verificationView,
+    //   page: () => const VerificationView(),
+    //   binding: AuthBinding(),
+    // ),
     GetPage(
       name: RoutesPath.homeView,
       page: () => LayoutView(),

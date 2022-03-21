@@ -319,6 +319,7 @@ class BuildPopUpMenuButtonUtil extends StatelessWidget {
   final Function(String) onSelected;
   final Function()? onCanceled;
   final EdgeInsetsGeometry padding;
+  final String? value;
 
   const BuildPopUpMenuButtonUtil({
     Key? key,
@@ -327,6 +328,7 @@ class BuildPopUpMenuButtonUtil extends StatelessWidget {
     required this.onSelected,
     this.onCanceled,
     this.padding = const EdgeInsets.all(8.0),
+    this.value
   }) : super(key: key);
 
   @override
@@ -402,19 +404,19 @@ class BuildLogoUtil extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextUtil(
-            text: 'Shop',
+            text: 'shop'.tr,
             fontSize: 35.sp,
-            color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+            color: mainLightColor,
             fontWeight: FontWeight.bold,
-            fontFamily: 'Redressed-Regular',
+            fontFamily: Get.locale.toString() == 'ar' ? 'Cairo' :'Redressed-Regular',
           ),
           horizontalSpace1(),
           TextUtil(
-            text: 'Store',
+            text: 'store'.tr,
             fontSize: 35.sp,
-            color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+            color: whiteColor,
             fontWeight: FontWeight.bold,
-            fontFamily: 'Redressed-Regular',
+            fontFamily: Get.locale.toString() == 'ar' ? 'Cairo' :'Redressed-Regular',
           ),
         ],
       ),
@@ -671,7 +673,7 @@ AppBar buildAppBarUtil({List<Widget>? actions, required String title}){
       fontWeight: FontWeight.bold,
     ),
     leading: BuildIconButtonUtil(
-      icon: IconBroken.Arrow___Left,
+      icon: Get.locale.toString() == 'ar' ? IconBroken.Arrow___Right :IconBroken.Arrow___Left,
       size: 24.0,
       color: Get.isDarkMode ? secondLightColor : secondaryColor,
       onClick: () => Get.back(),
@@ -694,3 +696,9 @@ SnackbarController showSnackBar(
     colorText: Get.isDarkMode ? secondDarkColor : secondLightColor,
   );
 }
+
+void showLoading() => Get.defaultDialog(
+  title: '',
+  backgroundColor: transparent,
+  content: const Center(child: BuildCircularLoadingUtil()),
+);

@@ -8,34 +8,29 @@ class SearchController extends GetxController {
   bool isSearchingByPrice = false;
 
   void onChangeSearchOption(String option) {
-    if(option == 'Price'){
+    if (option == 'price'.tr) {
       isSearchingByPrice = true;
-    }else{
+    } else {
       isSearchingByPrice = false;
     }
     update();
   }
 
   void searchQueryByName(String searchKey) {
-    print('namm');
     searchKey = searchKey.toLowerCase();
-    displayedProducts = displayedProducts
-        .where((element) {
-          var searchTerm = element.title.toLowerCase();
-          return searchTerm.contains(searchKey);
-        })
-        .toList();
+    displayedProducts = displayedProducts.where((element) {
+      var searchTerm = element.title.toLowerCase();
+      return searchTerm.contains(searchKey);
+    }).toList();
     update();
   }
 
   void searchQueryByPrice(String searchKey) {
     searchKey = searchKey.toLowerCase();
-    displayedProducts = displayedProducts
-        .where((element) {
-          var searchTerm = (element.price).toInt().toString().toLowerCase();
-          return searchTerm.contains(searchKey);
-        })
-        .toList();
+    displayedProducts = displayedProducts.where((element) {
+      var searchTerm = (element.price).toInt().toString().toLowerCase();
+      return searchTerm.contains(searchKey);
+    }).toList();
     update();
   }
 

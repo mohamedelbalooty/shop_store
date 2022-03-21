@@ -12,7 +12,7 @@ class FavouriteController extends GetxController {
         favouriteProducts.indexWhere((element) => element.id == productId);
     if (selectedIndex >= 0) {
       favouriteProducts.removeAt(selectedIndex);
-      StorageHelper.removeListData(key: favouriteKey);
+      StorageHelper.removeData(key: favouriteKey);
     } else {
       favouriteProducts
           .add(products.firstWhere((element) => element.id == productId));

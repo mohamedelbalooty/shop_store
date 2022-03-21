@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shop_store/logic/controller/auth_controller.dart';
 import 'package:shop_store/logic/controller/setting_controller.dart';
 import 'package:shop_store/logic/controller/theme_controller.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:shop_store/utils/constants.dart';
+import 'package:shop_store/utils/helper/storage_helper.dart';
 import 'package:shop_store/utils/icon_broken.dart';
 import '../../app_components.dart';
 
 class BuildInfoWidget extends StatelessWidget {
-  const BuildInfoWidget({Key? key}) : super(key: key);
-
+  BuildInfoWidget({Key? key}) : super(key: key);
+  final _settingController = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -20,9 +23,9 @@ class BuildInfoWidget extends StatelessWidget {
             height: 100.w,
             width: 100.w,
             decoration: BoxDecoration(
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(
-                  'https://www.wepal.net/ar/uploads/2732018-073911PM-1.jpg',
+                  _settingController.userData.image!,
                 ),
                 fit: BoxFit.fill,
               ),
@@ -38,7 +41,7 @@ class BuildInfoWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextUtil(
-                text: 'mohamed elbalooty gamal'
+                text: _settingController.userData.name ?? 'no name'
                     .split(' ')
                     .map((e) => e.capitalize)
                     .join(' '),
@@ -47,7 +50,7 @@ class BuildInfoWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               TextUtil(
-                text: 'mohamedelbalooty123@gmail.com',
+                text: _settingController.userData.email ?? '',
                 fontSize: 14.sp,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
@@ -151,18 +154,34 @@ List<Widget> settingItems(BuildContext context) => [
           ),
         ),
       ),
-      GestureDetector(
-        onTap: () {},
-        child: BuildSettingItemWidget(
-          color: Colors.redAccent,
-          icon: Icons.logout,
-          text: 'logout'.tr,
-          widget: Icon(
-            Icons.arrow_forward_ios,
-            size: 24.0,
-            color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-          ),
-        ),
+      GetBuilder<AuthController>(
+        builder: (context) {
+          final _authController = Get.find<AuthController>();
+          return GestureDetector(
+            onTap: () {
+              switch(StorageHelper.getStringData(key: loginTypeKey)){
+                case 'google':
+                  _authController.googleSignOut();
+                  break;
+                case 'facebook':
+                  _authController.facebookSignOut();
+                  break;
+                default:
+                  _authController.emailLogout();
+              }
+            },
+            child: BuildSettingItemWidget(
+              color: Colors.redAccent,
+              icon: Icons.logout,
+              text: 'logout'.tr,
+              widget: Icon(
+                Icons.arrow_forward_ios,
+                size: 24.0,
+                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+              ),
+            ),
+          );
+        }
       ),
     ];
 

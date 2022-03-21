@@ -18,7 +18,7 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   final _searchController = Get.find<SearchController>();
   final TextEditingController _searchKeyController = TextEditingController();
-  final List<String> _searchOptions = ['Price', 'Title'];
+  final List<String> _searchOptions = ['price'.tr, 'name'.tr];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _SearchViewState extends State<SearchView> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
-      appBar: buildAppBarUtil(title: 'Search about product'),
+      appBar: buildAppBarUtil(title: 'search_about_products'.tr),
       body: GetBuilder<SearchController>(
         builder: (context) {
           return Column(
@@ -72,9 +72,9 @@ class _SearchViewState extends State<SearchView> {
               ),
               verticalSpace1(),
               _searchController.displayedProducts.isEmpty
-                  ? const Expanded(
+                  ? Expanded(
                       child: BuildEmptyUtil(
-                        message: 'No products available',
+                        message: 'empty_product'.tr,
                         image: 'assets/images/empty_favourite.svg',
                       ),
                     )

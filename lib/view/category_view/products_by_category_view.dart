@@ -19,14 +19,14 @@ class ProductsByCategoryView extends StatelessWidget {
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
-      appBar: buildAppBarUtil(title: '$categoryName products'),
+      appBar: buildAppBarUtil(title: categoryName),
       body: Obx(
         () {
           if (_homeController.productsByCategoryIsLoading.value) {
             return const BuildProductByCategoryLoading();
           }
           return GridView.builder(
-            padding: symmetricHorizontalPadding1(),
+            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 2.h, bottom: 5.h),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: isPortrait ? 2 : 3,
                 mainAxisExtent: 250.h,

@@ -71,7 +71,7 @@ class BuildAuthQuestionWidget extends StatelessWidget {
     return Container(
       height: kBottomNavigationBarHeight,
       width: infinityWidth,
-      color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+      color: mainLightColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         textBaseline: TextBaseline.alphabetic,
@@ -79,14 +79,14 @@ class BuildAuthQuestionWidget extends StatelessWidget {
           TextUtil(
             text: question,
             fontSize: 16.sp,
-            color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+            color: secondLightColor,
             fontWeight: FontWeight.normal,
           ),
           horizontalSpace1(),
           BuildTextButtonUtil(
               text: buttonText,
               fontSize: 16.sp,
-              color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+              color: whiteColor,
               fontWeight: FontWeight.normal,
               decoration: TextDecoration.underline,
               onClick: onClick),
@@ -108,9 +108,9 @@ class BuildCheckTermsWidget extends StatelessWidget {
         GetBuilder<AuthController>(builder: (context) {
           return Checkbox(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            checkColor: Get.isDarkMode ? secondDarkColor : secondLightColor,
+            checkColor: secondLightColor,
             fillColor: MaterialStateProperty.all(
-              Get.isDarkMode ? mainDarkColor : mainLightColor,
+              mainLightColor,
             ),
             value: _controller.isChecked,
             onChanged: (bool? value) {
@@ -119,15 +119,15 @@ class BuildCheckTermsWidget extends StatelessWidget {
           );
         }),
         TextUtil(
-          text: 'I accept ',
+          text: '${'accept'.tr} ',
           fontSize: 14.sp,
-          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+          color: whiteColor,
           fontWeight: FontWeight.normal,
         ),
         BuildTextButtonUtil(
-          text: 'terms & conditions',
+          text: 'terms_conditions'.tr,
           fontSize: 14.sp,
-          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+          color: whiteColor,
           fontWeight: FontWeight.normal,
           decoration: TextDecoration.underline,
           padding: EdgeInsets.zero,

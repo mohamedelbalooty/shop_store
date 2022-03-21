@@ -77,7 +77,7 @@ class _BuildSizeWidgetState extends State<BuildSizeWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextUtil(
-          text: 'Sizes',
+          text: 'sizes'.tr,
           color: Get.isDarkMode ? secondLightColor : secondDarkColor,
           fontSize: 14.sp,
           fontWeight: FontWeight.bold,
@@ -223,7 +223,7 @@ class BuildProductAppBarWidget extends StatelessWidget {
         children: [
           BuildCircleButtonUtil(
             child: Icon(
-              IconBroken.Arrow___Left,
+              Get.locale.toString() == 'ar' ? IconBroken.Arrow___Right : IconBroken.Arrow___Left,
               size: 24.0,
               color: Get.isDarkMode ? secondDarkColor : secondLightColor,
             ),
@@ -335,7 +335,7 @@ class BuildProductDetailsWidget extends StatelessWidget {
                 product.category == "men's clothing" ||
                         product.category == "women's clothing"
                     ? TextUtil(
-                        text: 'Colors',
+                        text: 'colors'.tr,
                         color:
                             Get.isDarkMode ? secondLightColor : secondDarkColor,
                         fontSize: 14.sp,
@@ -392,7 +392,7 @@ class BuildProductDetailsWidget extends StatelessWidget {
               ],
             ),
             TextUtil(
-              text: 'Description',
+              text: 'description'.tr,
               color: Get.isDarkMode ? secondLightColor : secondDarkColor,
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
@@ -400,8 +400,8 @@ class BuildProductDetailsWidget extends StatelessWidget {
             verticalSpace1(),
             ReadMoreText(
               product.description,
-              trimCollapsedText: 'Show more',
-              trimExpandedText: 'Show less',
+              trimCollapsedText: 'show_more'.tr,
+              trimExpandedText: 'show_less'.tr,
               moreStyle: TextStyle(
                 color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                 fontSize: 16.sp,
@@ -457,13 +457,13 @@ class BuildProductViewBottomAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextUtil(
-                  text: 'Price',
+                  text: 'price'.tr,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
                 ),
                 TextUtil(
-                  text: '\$${product.price}',
+                  text: '${'currency'.tr}${product.price}',
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -474,7 +474,7 @@ class BuildProductViewBottomAppBar extends StatelessWidget {
             Expanded(
               child: BuildElevatedButtonUtil(
                 child: TextUtil(
-                  text: 'Add to cart',
+                  text: 'add_to_cart'.tr,
                   color: Get.isDarkMode ? secondDarkColor : secondLightColor,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,

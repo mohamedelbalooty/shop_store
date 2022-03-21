@@ -6,6 +6,7 @@ import 'package:shop_store/utils/localization/localization.dart';
 import 'package:shop_store/utils/routes/routes.dart';
 import 'logic/controller/theme_controller.dart';
 import 'utils/colors.dart';
+import 'utils/constants.dart';
 import 'utils/helper/dio_helper.dart';
 import 'utils/helper/storage_helper.dart';
 
@@ -31,8 +32,8 @@ class ShopStore extends StatelessWidget {
         title: 'Shop store',
         initialRoute: Routes.initialRoute,
         getPages: Routes.routes,
-        locale: const Locale('en'),
-        fallbackLocale: const Locale('en'),
+        locale: Locale(StorageHelper.getStringData(key: languageKey) ?? 'ar'),
+        fallbackLocale: const Locale('ar'),
         translations: AppLocalization(),
         theme: ThemeData(
           primaryColor: mainLightColor,

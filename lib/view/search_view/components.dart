@@ -33,7 +33,7 @@ class BuildSearchWidget extends StatelessWidget {
         ),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-          label: const Text('Search'),
+          label: Text('search'.tr),
           labelStyle: TextStyle(
             color: Get.isDarkMode ? mainDarkColor : mainLightColor,
             fontSize: 16.sp,

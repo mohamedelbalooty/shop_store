@@ -35,11 +35,4 @@ class LayoutController extends GetxController {
     FavouriteView(),
     const SettingsView(),
   ].obs;
-
-  RxList<String> appBarTitles = <String>[
-    'Home screen',
-    'Categories screen',
-    'Favourite screen',
-    'Settings screen'
-  ].obs;
 }

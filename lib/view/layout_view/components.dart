@@ -177,8 +177,9 @@ class BuildProductItemUtil extends StatelessWidget {
                       child: Text(
                         product.title,
                         style: TextStyle(
-                          color:
-                              Get.isDarkMode ? secondLightColor : secondDarkColor,
+                          color: Get.isDarkMode
+                              ? secondLightColor
+                              : secondDarkColor,
                           fontSize: 14.sp,
                           height: 1.5,
                         ),
@@ -199,7 +200,8 @@ class BuildProductItemUtil extends StatelessWidget {
                           IconBroken.Heart,
                           size: 26.0,
                         ),
-                        color: _favouriteController.isFavourite(productId: product.id)
+                        color: _favouriteController.isFavourite(
+                                productId: product.id)
                             ? redColor
                             : secondaryColor,
                         onPressed: () {
@@ -220,7 +222,8 @@ class BuildProductItemUtil extends StatelessWidget {
                     TextUtil(
                       text: '\$${product.price}',
                       fontSize: 16.sp,
-                      color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+                      color:
+                          Get.isDarkMode ? secondLightColor : secondDarkColor,
                       fontWeight: FontWeight.bold,
                       height: 1,
                     ),
@@ -232,35 +235,40 @@ class BuildProductItemUtil extends StatelessWidget {
                               ? Icons.star
                               : Icons.star_border,
                           size: 15.0,
-                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
                         ),
                         Icon(
                           product.rating.rate.floor() >= 4
                               ? Icons.star
                               : Icons.star_border,
                           size: 15.0,
-                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
                         ),
                         Icon(
                           product.rating.rate.floor() >= 3
                               ? Icons.star
                               : Icons.star_border,
                           size: 15.0,
-                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
                         ),
                         Icon(
                           product.rating.rate.floor() >= 2
                               ? Icons.star
                               : Icons.star_border,
                           size: 15.0,
-                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
                         ),
                         Icon(
                           product.rating.rate.floor() >= 1
                               ? Icons.star
                               : Icons.star_border,
                           size: 15.0,
-                          color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
                         ),
                       ],
                     ),
@@ -272,8 +280,8 @@ class BuildProductItemUtil extends StatelessWidget {
                 onTap: () {
                   _cartController.addProductToCart(product: product);
                   showSnackBar(
-                    title: 'Cart details',
-                    message: 'You added this product successfully',
+                    title: 'cart_details'.tr,
+                    message: 'added_product_successfully'.tr,
                     position: SnackPosition.BOTTOM,
                   );
                 },
@@ -283,9 +291,10 @@ class BuildProductItemUtil extends StatelessWidget {
                   color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                   child: Center(
                     child: TextUtil(
-                      text: 'Add to cart',
+                      text: 'add_to_cart'.tr,
                       fontSize: 16.sp,
-                      color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+                      color:
+                          Get.isDarkMode ? secondDarkColor : secondLightColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -299,25 +308,27 @@ class BuildProductItemUtil extends StatelessWidget {
   }
 }
 
-const List<Category> categories = [
-  Category(
-      id: 1,
-      name: 'Electronics',
-      image:
-      'https://cff2.earth.com/uploads/2020/09/01004645/shutterstock_2850401842-960x640.jpg'),
-  Category(
-      id: 2,
-      name: 'Jewelry',
-      image:
-      'https://i.pinimg.com/736x/3c/65/a8/3c65a84b72e5b8d265df4b98a453faa5.jpg'),
-  Category(
-      id: 3,
-      name: 'Men\'s clothes',
-      image:
-      'https://i.pinimg.com/736x/53/b8/ab/53b8abcfc1801dd798ec1ae0e0d5c01b--wallpaper-desktop-desktop-backgrounds.jpg'),
-  Category(
-      id: 4,
-      name: 'Women clothes',
-      image:
-      'https://data.whicdn.com/images/334050263/original.jpg?t=1565743455'),
-];
+List<Category> getLocalCategories(){
+  return [
+    Category(
+        id: 1,
+        name: 'electronic'.tr,
+        image:
+        'https://cff2.earth.com/uploads/2020/09/01004645/shutterstock_2850401842-960x640.jpg'),
+    Category(
+        id: 2,
+        name: 'jewelry'.tr,
+        image:
+        'https://i.pinimg.com/736x/3c/65/a8/3c65a84b72e5b8d265df4b98a453faa5.jpg'),
+    Category(
+        id: 3,
+        name: 'men_clothes'.tr,
+        image:
+        'https://i.pinimg.com/736x/53/b8/ab/53b8abcfc1801dd798ec1ae0e0d5c01b--wallpaper-desktop-desktop-backgrounds.jpg'),
+    Category(
+        id: 4,
+        name: 'women_clothes'.tr,
+        image:
+        'https://data.whicdn.com/images/334050263/original.jpg?t=1565743455'),
+  ];
+}

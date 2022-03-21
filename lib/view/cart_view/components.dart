@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shop_store/logic/controller/cart_controller.dart';
 import 'package:shop_store/model/product.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:shop_store/view/payment_view/payment_view.dart';
 import '../app_components.dart';
 
 class BuildCartProductItem extends StatelessWidget {
@@ -155,7 +156,7 @@ class BuildCartProductItem extends StatelessWidget {
                   ),
                   BuildElevatedButtonUtil(
                       child: TextUtil(
-                        text: 'Remove',
+                        text: 'remove'.tr,
                         color:
                             Get.isDarkMode ? secondDarkColor : secondLightColor,
                         fontSize: 14.sp,
@@ -200,7 +201,7 @@ class BuildCartBottomAppBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextUtil(
-              text: 'Total order',
+              text: 'total_order'.tr,
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
               color: Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -209,7 +210,7 @@ class BuildCartBottomAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextUtil(
-                  text: 'Total purchases',
+                  text: 'total_price'.tr,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.normal,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -226,7 +227,7 @@ class BuildCartBottomAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextUtil(
-                  text: 'Total products number',
+                  text: 'total_product'.tr,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.normal,
                   color: Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -242,14 +243,14 @@ class BuildCartBottomAppBar extends StatelessWidget {
             verticalSpace1(),
             BuildElevatedButtonUtil(
               child: TextUtil(
-                text: 'Pay now',
+                text: 'pay_now'.tr,
                 color: Get.isDarkMode ? secondDarkColor : secondLightColor,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
               ),
               color: Get.isDarkMode ? mainDarkColor : mainLightColor,
               size: Size(infinityWidth, 50.h),
-              onClick: () {},
+              onClick: () => Get.to(PaymentView()),
             ),
             verticalSpace2(),
           ],

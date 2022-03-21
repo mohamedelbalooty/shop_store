@@ -1,8 +1,9 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:get/get.dart';
 import 'package:shop_store/model/error_result.dart';
 import 'server_exception.dart';
 
-ErrorResult returnResponse(Response response) {
+ErrorResult returnResponse(dio.Response response) {
   switch (response.statusCode) {
     case 400:
       return BadRequestException().errorResult();
@@ -17,26 +18,27 @@ ErrorResult returnResponse(Response response) {
   }
 }
 
-ErrorResult dioError({required DioError errorType, Response? response}) {
-  const ErrorResult connectionError = ErrorResult(
-      errorMessage: 'Check your connection and try again!',
+ErrorResult dioError(
+    {required dio.DioError errorType, dio.Response? response}) {
+  ErrorResult connectionError = ErrorResult(
+      errorMessage: 'socketException'.tr,
       errorImage: 'assets/images/socket_exception.svg');
   switch (errorType.type) {
-    case DioErrorType.response:
+    case dio.DioErrorType.response:
       return returnResponse(response!);
-    case DioErrorType.cancel:
-      return const ErrorResult(
-          errorMessage: 'You canceled connection try again!',
+    case dio.DioErrorType.cancel:
+      return ErrorResult(
+          errorMessage: 'canceledException'.tr,
           errorImage: 'assets/images/socket_exception.svg');
-    case DioErrorType.connectTimeout:
-      return const ErrorResult(
-          errorMessage: 'Your connection time out try again!',
+    case dio.DioErrorType.connectTimeout:
+      return ErrorResult(
+          errorMessage: 'connectTimeoutException'.tr,
           errorImage: 'assets/images/socket_exception.svg');
-    case DioErrorType.receiveTimeout:
+    case dio.DioErrorType.receiveTimeout:
       return connectionError;
-    case DioErrorType.sendTimeout:
+    case dio.DioErrorType.sendTimeout:
       return connectionError;
-    case DioErrorType.other:
+    case dio.DioErrorType.other:
       return connectionError;
   }
 }

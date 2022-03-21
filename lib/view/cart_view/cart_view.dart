@@ -17,7 +17,7 @@ class CartView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
       appBar: buildAppBarUtil(
-        title: 'Cart items',
+        title: 'cart_items'.tr,
         actions: [
           BuildIconButtonUtil(
             icon: IconBroken.Delete,
@@ -26,8 +26,8 @@ class CartView extends StatelessWidget {
             onClick: () {
               _cartController.cartProducts.isNotEmpty
                   ? Get.defaultDialog(
-                      title: 'Delete cart products',
-                      middleText: 'Are you sure you need to clear cart ?',
+                      title: 'delete_cart'.tr,
+                      middleText: 'sure_delete_cart'.tr,
                       titleStyle: TextStyle(
                         color:
                             Get.isDarkMode ? secondLightColor : secondDarkColor,
@@ -41,7 +41,7 @@ class CartView extends StatelessWidget {
                       ),
                       confirm: BuildElevatedButtonUtil(
                         child: TextUtil(
-                          text: 'Yes',
+                          text: 'yes'.tr,
                           color: Get.isDarkMode
                               ? secondDarkColor
                               : secondLightColor,
@@ -57,7 +57,7 @@ class CartView extends StatelessWidget {
                       ),
                       cancel: BuildElevatedButtonUtil(
                         child: TextUtil(
-                          text: 'No',
+                          text: 'no'.tr,
                           color: Get.isDarkMode
                               ? secondDarkColor
                               : secondLightColor,
@@ -72,8 +72,8 @@ class CartView extends StatelessWidget {
                       ),
                     )
                   : showSnackBar(
-                      title: 'Cart details',
-                      message: 'Don\'t have products to delete theme!',
+                      title: 'cart_details'.tr,
+                      message: 'no_product_cart'.tr,
                       position: SnackPosition.BOTTOM,
                     );
             },
@@ -86,7 +86,7 @@ class CartView extends StatelessWidget {
             image: 'assets/images/empty_cart.svg',
             height: 220.h,
             width: 220.w,
-            message: 'Your cart is empty',
+            message: 'empty_cart'.tr,
           );
         }
         return ListView.separated(

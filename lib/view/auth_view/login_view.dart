@@ -46,14 +46,14 @@ class _LoginViewState extends State<LoginView> {
                         SizedBox(height: isPortrait ? 100.h : 20.h),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
-                          hint: 'Email',
+                          hint: 'email'.tr,
                           controller: _email,
                           validate: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your email!';
+                              return 'email_verify'.tr;
                             } else if (!RegExp(validationEmail)
                                 .hasMatch(value)) {
-                              return 'Enter valid email!';
+                              return 'valid_email_verify'.tr;
                             }
                             return null;
                           },
@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                         GetBuilder<AuthController>(
                           builder: (_) {
                             return BuildUnderlinedTextFormField(
-                              hint: 'Password',
+                              hint: 'password'.tr,
                               controller: _password,
                               isPassword: !_controller.isVisible,
                               suffixWidget: IconButton(
@@ -71,16 +71,14 @@ class _LoginViewState extends State<LoginView> {
                                 icon: _controller.isVisible == true
                                     ? const Icon(Icons.visibility_off)
                                     : const Icon(Icons.visibility),
-                                color: Get.isDarkMode
-                                    ? mainDarkColor
-                                    : mainLightColor,
+                                color: mainLightColor,
                                 onPressed: () => _controller.changeVisible(),
                               ),
                               validate: (String? value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Enter your password!';
+                                  return 'password_verify'.tr;
                                 } else if (value.toString().trim().length < 8) {
-                                  return 'Enter strong password don\'t less than 8 characters';
+                                  return 'valid_password_verify'.tr;
                                 }
                                 return null;
                               },
@@ -91,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             BuildTextButtonUtil(
-                                text: 'Forget your password!',
+                                text: 'forget_password'.tr,
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
@@ -105,14 +103,13 @@ class _LoginViewState extends State<LoginView> {
                           return BuildElevatedButtonUtil(
                             child: !_controller.isLoading
                                 ? TextUtil(
-                                    text: 'Log in'.toUpperCase(),
+                                    text: 'login'.tr.toUpperCase(),
                                     fontSize: 20.sp,
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
                                 : const BuildCircularLoadingUtil(),
-                            color:
-                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                            color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),
                             onClick: () async {
@@ -129,29 +126,35 @@ class _LoginViewState extends State<LoginView> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextUtil(
-                            text: 'OR',
-                            color: Get.isDarkMode
-                                ? secondDarkColor
-                                : secondLightColor,
+                            text: 'or'.tr,
+                            color: whiteColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.normal,
                             height: 1.0,
                           ),
                         ),
                         verticalSpace3(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BuildImageButtonUtil(
-                              image: 'assets/images/facebook.png',
-                              onClick: () {},
-                            ),
-                            horizontalSpace5(),
-                            BuildImageButtonUtil(
-                              image: 'assets/images/google.png',
-                              onClick: () {},
-                            ),
-                          ],
+                        GetBuilder<AuthController>(
+                          builder: (context) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                BuildImageButtonUtil(
+                                  image: 'assets/images/facebook.png',
+                                  onClick: () async {
+                                    await _controller.facebookSignIn();
+                                  },
+                                ),
+                                horizontalSpace5(),
+                                BuildImageButtonUtil(
+                                  image: 'assets/images/google.png',
+                                  onClick: () async{
+                                    await _controller.googleSignIn();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
                         ),
                         SizedBox(height: 50.h),
                       ],
@@ -164,8 +167,8 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
       bottomNavigationBar: BuildAuthQuestionWidget(
-        question: 'Don\'t have an account?',
-        buttonText: 'Signup'.toUpperCase(),
+        question: 'do_not_have_account'.tr,
+        buttonText: 'signup'.tr.toUpperCase(),
         onClick: () => Get.toNamed(RoutesPath.signupView),
       ),
     );

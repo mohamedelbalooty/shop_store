@@ -34,15 +34,15 @@ class StorageHelper {
     return storage!.read(key);
   }
 
-  static Future<void> removeListData({required String key}) async {
-    await storage!.remove(key);
-  }
-
-  static Future<void> setMapData({required String key, required Map value}) async{
+  static Future<void> setMapData({required String key, required Map<String, dynamic> value}) async{
     return await storage!.write(key, value);
   }
 
-  static Map? getMapData({required String key}){
+  static Map<String, dynamic>? getMapData({required String key}){
     return storage!.read(key);
+  }
+
+  static Future<void> removeData({required String key}) async {
+    await storage!.remove(key);
   }
 }

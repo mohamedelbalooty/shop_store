@@ -39,11 +39,13 @@ class WelcomeView extends StatelessWidget {
                         ),
                         child: Center(
                           child: TextUtil(
-                            text: 'Wellcome',
+                            text: 'welcome'.tr,
                             fontSize: 35.sp,
                             color: whiteColor,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Redressed-Regular',
+                            fontFamily: Get.locale.toString() == 'ar'
+                                ? 'Cairo'
+                                : 'Redressed-Regular',
                           ),
                         ),
                       ),
@@ -52,14 +54,15 @@ class WelcomeView extends StatelessWidget {
                       SizedBox(height: isPortrait ? 150 : 50),
                       ElevatedButton(
                         child: TextUtil(
-                          text: 'Get Started',
+                          text: 'get_started'.tr,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
-                              EdgeInsets.symmetric(
-                                  horizontal: 15.w, vertical: 5.h)),
+                            EdgeInsets.symmetric(
+                                horizontal: 30.w, vertical: 5.h),
+                          ),
                           backgroundColor:
                               MaterialStateProperty.all(mainLightColor),
                           shape:
@@ -75,13 +78,13 @@ class WelcomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextUtil(
-                            text: 'Don\'t have an account?',
+                            text: 'do_not_have_account'.tr,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.normal,
                           ),
                           horizontalSpace1(),
                           BuildTextButtonUtil(
-                            text: 'SignUp',
+                            text: 'signup'.tr,
                             fontSize: 20.sp,
                             decoration: TextDecoration.underline,
                             onClick: () => Get.offNamed(RoutesPath.signupView),

@@ -47,28 +47,28 @@ class _SignUpViewState extends State<SignUpView> {
                         SizedBox(height: isPortrait ? 100.h : 20.h),
                         const BuildLogoUtil(),
                         BuildUnderlinedTextFormField(
-                          hint: 'Username',
+                          hint: 'username'.tr,
                           controller: _userName,
                           validate: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your name!';
+                              return 'username_verify'.tr;
                             } else if (value.toString().trim().length <= 2 ||
                                 !RegExp(validationName).hasMatch(value)) {
-                              return 'Enter valid name!';
+                              return 'valid_username_verify'.tr;
                             }
                             return null;
                           },
                         ),
                         verticalSpace3(),
                         BuildUnderlinedTextFormField(
-                          hint: 'Email',
+                          hint: 'email'.tr,
                           controller: _email,
                           validate: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Enter your email!';
+                              return 'email_verify'.tr;
                             } else if (!RegExp(validationEmail)
                                 .hasMatch(value)) {
-                              return 'Enter valid email!';
+                              return 'valid_email_verify'.tr;
                             }
                             return null;
                           },
@@ -76,7 +76,7 @@ class _SignUpViewState extends State<SignUpView> {
                         verticalSpace3(),
                         GetBuilder<AuthController>(builder: (_) {
                           return BuildUnderlinedTextFormField(
-                            hint: 'Password',
+                            hint: 'password'.tr,
                             controller: _password,
                             isPassword: !_controller.isVisible,
                             suffixWidget: IconButton(
@@ -85,16 +85,14 @@ class _SignUpViewState extends State<SignUpView> {
                               icon: _controller.isVisible == true
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility),
-                              color: Get.isDarkMode
-                                  ? mainDarkColor
-                                  : mainLightColor,
+                              color: mainLightColor,
                               onPressed: () => _controller.changeVisible(),
                             ),
                             validate: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return 'Enter your password!';
+                                return 'password_verify'.tr;
                               } else if (value.toString().trim().length < 8) {
-                                return 'Enter strong password don\'t less than 8 characters';
+                                return 'valid_password_verify'.tr;
                               }
                               return null;
                             },
@@ -106,16 +104,13 @@ class _SignUpViewState extends State<SignUpView> {
                           return BuildElevatedButtonUtil(
                             child: !_controller.isLoading
                                 ? TextUtil(
-                                    text: 'Sign up'.toUpperCase(),
-                                    color: Get.isDarkMode
-                                        ? secondDarkColor
-                                        : secondLightColor,
+                                    text: 'signup'.tr.toUpperCase(),
+                                    color: whiteColor,
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.bold,
                                   )
-                                : const BuildCircularLoadingUtil(),
-                            color:
-                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                                : const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(whiteColor),),
+                            color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),
                             onClick: () async {
@@ -140,8 +135,8 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       ),
       bottomNavigationBar: BuildAuthQuestionWidget(
-        question: 'Already have an account?',
-        buttonText: 'Login'.toUpperCase(),
+        question: 'do_have_account'.tr,
+        buttonText: 'login'.tr.toUpperCase(),
         onClick: () => Get.toNamed(RoutesPath.loginView),
       ),
     );

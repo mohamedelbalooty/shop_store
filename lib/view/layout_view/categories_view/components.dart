@@ -20,40 +20,43 @@ class BuildCategoryItem extends StatelessWidget {
       child: Container(
         height: 150.h,
         width: infinityWidth,
-        padding: const EdgeInsets.all(2.0),
+        // padding: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
+          color: Get.isDarkMode ? secondDarkColor : secondLightColor,
           borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-          border: Border.all(
-            color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-            width: 2.5,
-          ),
+          boxShadow: [
+            BoxShadow(
+                color: Get.isDarkMode ? Colors.white24 : Colors.black12,
+                offset: const Offset(-1, 2),
+                spreadRadius: 2,
+                blurRadius: 2),
+          ],
         ),
-        child: Stack(
-          alignment: Alignment.bottomLeft,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              child: BuildNetworkImageUtil(
-                image: category.image,
-                width: infinityWidth,
-              ),
-            ),
             Container(
-              height: 30.h,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              margin: const EdgeInsets.all(10),
+              height: 150.h,
+              width: 150.h,
               decoration: BoxDecoration(
-                color: Get.isDarkMode ? mainDarkColor : mainLightColor,
-                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: TextUtil(
-                text: category.name,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-                height: 1.5,
-                color: Get.isDarkMode ? secondDarkColor : secondLightColor,
+                borderRadius: const BorderRadiusDirectional.only(
+                    topStart: Radius.circular(8.0),
+                    bottomStart: Radius.circular(8.0)),
+                image: DecorationImage(
+                  image: NetworkImage(category.image),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
+            const Spacer(),
+            TextUtil(
+              text: category.name,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              height: 1.5,
+              color: Get.isDarkMode ? secondLightColor : secondDarkColor,
+            ),
+            horizontalSpace4(),
           ],
         ),
       ),

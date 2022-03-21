@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shop_store/utils/colors.dart';
 import 'package:shop_store/view/app_components.dart';
@@ -17,7 +16,7 @@ class SettingsView extends StatelessWidget {
           padding: symmetricHorizontalPadding1(),
           child: Column(
             children: [
-              const BuildInfoWidget(),
+              BuildInfoWidget(),
               verticalSpace2(),
               Divider(
                 color: Get.isDarkMode ? mainDarkColor : mainLightColor,

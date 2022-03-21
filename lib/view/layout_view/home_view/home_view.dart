@@ -108,6 +108,7 @@ class _HomeViewState extends State<HomeView> {
   //   print('data => $data');
   // }
 
+
   @override
   Widget build(BuildContext context) {
     final bool isPortrait =
@@ -116,6 +117,7 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: context.theme.backgroundColor,
       body: Obx(
         () {
+          getLocalCategories();
           if (_homeController.categoryIsLoading.value ||
               _homeController.homeProductsIsLoading.value) {
             return const BuildHomeLoading();
@@ -149,24 +151,26 @@ class _HomeViewState extends State<HomeView> {
                     width: infinityWidth,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
+                      itemCount: getLocalCategories().length,
                       itemBuilder: (_, index) => BuildHomeCategoryWidget(
-                        category: categories[index],
+                        category: getLocalCategories()[index],
                         margin: index == 0
                             ? EdgeInsetsDirectional.only(start: 10.w)
-                            : index == categories.length - 1
+                            : index == getLocalCategories().length - 1
                                 ? EdgeInsetsDirectional.only(end: 10.w)
                                 : EdgeInsets.zero,
                         onClick: () {
-                          _homeController.getProductsByCategory(categoryKey: _homeController.categories[index]);
-                          Get.to(ProductsByCategoryView(categoryName: categories[index].name));
+                          _homeController.getProductsByCategory(
+                              categoryKey: _homeController.categories[index]);
+                          Get.to(ProductsByCategoryView(
+                              categoryName: getLocalCategories()[index].name));
                         },
                       ),
                       separatorBuilder: (_, index) => horizontalSpace3(),
                     ),
                   ),
                   verticalSpace1(),
-                  const BuildHomeTitleWidget(text: 'Sales'),
+                  BuildHomeTitleWidget(text: 'offers'.tr),
                   verticalSpace1(),
                   BuildBannerWidget(controller: _homeController),
                   verticalSpace2(),
@@ -179,7 +183,7 @@ class _HomeViewState extends State<HomeView> {
                     },
                   ),
                   verticalSpace1(),
-                  const BuildHomeTitleWidget(text: 'Products'),
+                  BuildHomeTitleWidget(text: 'products'.tr),
                   verticalSpace1(),
                   GridView.builder(
                     shrinkWrap: true,

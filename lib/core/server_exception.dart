@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shop_store/model/error_result.dart';
 
 abstract class ServerException {
@@ -7,26 +8,26 @@ abstract class ServerException {
 class BadRequestException extends ServerException {
   @override
   ErrorResult errorResult() {
-    return const ErrorResult(
-        errorMessage: 'BadRequestException',
-        errorImage: 'assets/images/cover.png');
+    return ErrorResult(
+        errorMessage: 'badRequestException'.tr,
+        errorImage: 'assets/images/server_exception.svg');
   }
 }
 
 class UnauthorisedException extends ServerException {
   @override
   ErrorResult errorResult() {
-    return const ErrorResult(
-        errorMessage: 'UnauthorisedException',
-        errorImage: 'assets/images/cover.png');
+    return ErrorResult(
+        errorMessage: 'unauthorisedException'.tr,
+        errorImage: 'assets/images/server_exception.svg');
   }
 }
 
 class FetchDataException extends ServerException {
   @override
   ErrorResult errorResult() {
-    return const ErrorResult(
-        errorMessage: 'FetchDataException',
-        errorImage: 'assets/images/cover.png');
+    return ErrorResult(
+        errorMessage: 'fetchDataException'.tr,
+        errorImage: 'assets/images/data_exception.svg');
   }
 }

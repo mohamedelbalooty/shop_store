@@ -85,5 +85,6 @@ Map<String, String> en = {
   'payment': 'Payment',
   'delivery': 'Delivery',
   'location_error': 'Something went wrong when getting current location !',
-  'verify_about_email': 'Verify about email'
+  'verify_about_email': 'Verify about email',
+  'ok': 'OK'
 };

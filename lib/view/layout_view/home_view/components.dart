@@ -30,7 +30,7 @@ class BuildSearchBarWidget extends StatelessWidget {
           onTap: () => Get.toNamed(RoutesPath.searchView),
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           child: Container(
-            height: 48.h,
+            height: 45.h,
             width: infinityWidth,
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             decoration: BoxDecoration(

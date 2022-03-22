@@ -8,7 +8,6 @@ import 'package:shop_store/utils/helper/storage_helper.dart';
 import 'package:shop_store/view/auth_view/forget_password_view.dart';
 import 'package:shop_store/view/auth_view/login_view.dart';
 import 'package:shop_store/view/auth_view/signup_view.dart';
-import 'package:shop_store/view/auth_view/verification_view.dart';
 import 'package:shop_store/view/cart_view/cart_view.dart';
 import 'package:shop_store/view/layout_view/layout_view.dart';
 import 'package:shop_store/view/search_view/search_view.dart';
@@ -36,11 +35,6 @@ class Routes {
       page: () => const ForgetPasswordView(),
       binding: AuthBinding(),
     ),
-    // GetPage(
-    //   name: RoutesPath.verificationView,
-    //   page: () => const VerificationView(),
-    //   binding: AuthBinding(),
-    // ),
     GetPage(
       name: RoutesPath.homeView,
       page: () => LayoutView(),
@@ -68,12 +62,8 @@ class RoutesPath {
   static const String loginView = "/loginView";
   static const String signupView = "/signupView";
   static const String forgetPasswordView = '/forgetPasswordView';
-  static const String verificationView = '/verificationView';
   static const String homeView = '/homeView';
   static const String cartView = '/cartView';
   static const String productView = '/productView';
   static const String searchView = '/searchView';
-// static const String verificationView = '/verificationView';
-// static const String verificationView = '/verificationView';
-
 }

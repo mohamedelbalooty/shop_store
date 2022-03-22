@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shop_store/logic/controller/auth_controller.dart';
+import 'package:shop_store/logic/controller/cart_controller.dart';
 import 'package:shop_store/logic/controller/payment_controller.dart';
 import 'package:shop_store/utils/colors.dart';
+import 'package:shop_store/utils/constants.dart';
+import 'package:shop_store/utils/helper/storage_helper.dart';
 import 'package:shop_store/utils/icon_broken.dart';
+import 'package:shop_store/utils/routes/routes.dart';
 import 'package:shop_store/view/app_components.dart';
 
 class PaymentView extends StatelessWidget {
   PaymentView({Key? key}) : super(key: key);
-  final _paymentController = Get.find<PaymentController>();
+  final _paymentController = Get.put(PaymentController());
+  final _cartController = Get.put(CartController());
+  final _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,30 +64,54 @@ class PaymentView extends StatelessWidget {
                         ),
                       ),
                       verticalSpace1(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: TextUtil(
-                          text: 'Mohamed Elbalooty'
-                              .split(' ')
-                              .map((e) => e.capitalize)
-                              .join(' '),
-                          fontSize: 16.sp,
-                          color: Get.isDarkMode
-                              ? secondDarkColor
-                              : secondLightColor,
-                          fontWeight: FontWeight.normal,
-                        ),
+                      Row(
+                        children: [
+                          Icon(
+                            IconBroken.User,
+                            size: 24.0,
+                            color:
+                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          ),
+                          horizontalSpace1(),
+                          Expanded(
+                            child: TextUtil(
+                              text: StorageHelper.getMapData(
+                                      key: userKey)!['name'] ??
+                                  'User name'
+                                      .split(' ')
+                                      .map((e) => e.capitalize)
+                                      .join(' '),
+                              fontSize: 16.sp,
+                              color: Get.isDarkMode
+                                  ? secondDarkColor
+                                  : secondLightColor,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: TextUtil(
-                          text: 'mohamedelblooty123@gmail.com',
-                          fontSize: 16.sp,
-                          color: Get.isDarkMode
-                              ? secondDarkColor
-                              : secondLightColor,
-                          fontWeight: FontWeight.normal,
-                        ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.alternate_email_rounded,
+                            size: 24.0,
+                            color:
+                                Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          ),
+                          horizontalSpace1(),
+                          Expanded(
+                            child: TextUtil(
+                              text: StorageHelper.getMapData(
+                                      key: userKey)!['email'] ??
+                                  'email',
+                              fontSize: 16.sp,
+                              color: Get.isDarkMode
+                                  ? secondDarkColor
+                                  : secondLightColor,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +150,40 @@ class PaymentView extends StatelessWidget {
                   ),
                   color: Get.isDarkMode ? mainDarkColor : mainLightColor,
                   size: Size(infinityWidth, 50.h),
-                  onClick: () {},
+                  onClick: () {
+                    Get.defaultDialog(
+                      title: 'Your order successfully completed',
+                      titleStyle: TextStyle(
+                          color:
+                              Get.isDarkMode ? mainDarkColor : mainLightColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          height: 1.5),
+                      content: SvgPicture.asset(
+                        'assets/images/order_success.svg',
+                        height: 150.0,
+                        width: 150.0,
+                        fit: BoxFit.fill,
+                      ),
+                      confirm: BuildElevatedButtonUtil(
+                        child: TextUtil(
+                          text: 'ok'.tr,
+                          color: Get.isDarkMode
+                              ? secondDarkColor
+                              : secondLightColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        color: Get.isDarkMode ? mainDarkColor : mainLightColor,
+                        size: Size(80.w, 30.h),
+                        onClick: () {
+                          _cartController.deleteCart();
+                          Get.back();
+                          Get.offNamedUntil(RoutesPath.homeView, (route) => false);
+                        },
+                      ),
+                    );
+                  },
                 ),
                 verticalSpace4(),
               ],

@@ -83,5 +83,6 @@ Map<String, String> ar = {
   'payment': 'وسيلة الدفع',
   'delivery': 'التوصيل السريع',
   'location_error': 'لقد حدث خطأ ما اثناء تحديد الموقع !',
-  'verify_about_email': 'التحقق من البريد الإلكتروني'
+  'verify_about_email': 'التحقق من البريد الإلكتروني',
+  'ok': 'تم'
 };

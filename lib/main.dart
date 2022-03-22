@@ -32,8 +32,8 @@ class ShopStore extends StatelessWidget {
         title: 'Shop store',
         initialRoute: Routes.initialRoute,
         getPages: Routes.routes,
-        locale: Locale(StorageHelper.getStringData(key: languageKey) ?? 'ar'),
-        fallbackLocale: const Locale('ar'),
+        locale: Locale(StorageHelper.getStringData(key: languageKey) ?? 'en'),
+        fallbackLocale: const Locale('en'),
         translations: AppLocalization(),
         theme: ThemeData(
           primaryColor: mainLightColor,

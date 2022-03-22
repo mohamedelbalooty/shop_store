@@ -100,7 +100,10 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
-                                : const BuildCircularLoadingUtil(),
+                                : const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        whiteColor),
+                                  ),
                             color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),

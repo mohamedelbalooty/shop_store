@@ -30,7 +30,7 @@ class LayoutController extends GetxController {
       selectedScreen.value == index ? whiteColor : unselectedItemColor;
 
   RxList<Widget> screens = <Widget>[
-    const HomeView(),
+    HomeView(),
     CategoriesView(),
     FavouriteView(),
     const SettingsView(),

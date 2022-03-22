@@ -108,7 +108,10 @@ class _LoginViewState extends State<LoginView> {
                                     color: whiteColor,
                                     fontWeight: FontWeight.bold,
                                   )
-                                : const BuildCircularLoadingUtil(),
+                                : const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        whiteColor),
+                                  ),
                             color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),
@@ -134,28 +137,26 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                         verticalSpace3(),
-                        GetBuilder<AuthController>(
-                          builder: (context) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                BuildImageButtonUtil(
-                                  image: 'assets/images/facebook.png',
-                                  onClick: () async {
-                                    await _controller.facebookSignIn();
-                                  },
-                                ),
-                                horizontalSpace5(),
-                                BuildImageButtonUtil(
-                                  image: 'assets/images/google.png',
-                                  onClick: () async{
-                                    await _controller.googleSignIn();
-                                  },
-                                ),
-                              ],
-                            );
-                          }
-                        ),
+                        GetBuilder<AuthController>(builder: (context) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BuildImageButtonUtil(
+                                image: 'assets/images/facebook.png',
+                                onClick: () async {
+                                  await _controller.facebookSignIn();
+                                },
+                              ),
+                              horizontalSpace5(),
+                              BuildImageButtonUtil(
+                                image: 'assets/images/google.png',
+                                onClick: () async {
+                                  await _controller.googleSignIn();
+                                },
+                              ),
+                            ],
+                          );
+                        }),
                         SizedBox(height: 50.h),
                       ],
                     ),

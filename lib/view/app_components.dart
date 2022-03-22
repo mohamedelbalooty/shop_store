@@ -321,15 +321,15 @@ class BuildPopUpMenuButtonUtil extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final String? value;
 
-  const BuildPopUpMenuButtonUtil({
-    Key? key,
-    required this.entries,
-    required this.icon,
-    required this.onSelected,
-    this.onCanceled,
-    this.padding = const EdgeInsets.all(8.0),
-    this.value
-  }) : super(key: key);
+  const BuildPopUpMenuButtonUtil(
+      {Key? key,
+      required this.entries,
+      required this.icon,
+      required this.onSelected,
+      this.onCanceled,
+      this.padding = const EdgeInsets.all(8.0),
+      this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -408,7 +408,8 @@ class BuildLogoUtil extends StatelessWidget {
             fontSize: 35.sp,
             color: mainLightColor,
             fontWeight: FontWeight.bold,
-            fontFamily: Get.locale.toString() == 'ar' ? 'Cairo' :'Redressed-Regular',
+            fontFamily:
+                Get.locale.toString() == 'ar' ? 'Cairo' : 'Redressed-Regular',
           ),
           horizontalSpace1(),
           TextUtil(
@@ -416,7 +417,8 @@ class BuildLogoUtil extends StatelessWidget {
             fontSize: 35.sp,
             color: whiteColor,
             fontWeight: FontWeight.bold,
-            fontFamily: Get.locale.toString() == 'ar' ? 'Cairo' :'Redressed-Regular',
+            fontFamily:
+                Get.locale.toString() == 'ar' ? 'Cairo' : 'Redressed-Regular',
           ),
         ],
       ),
@@ -664,7 +666,7 @@ class BuildEmptyUtil extends StatelessWidget {
   }
 }
 
-AppBar buildAppBarUtil({List<Widget>? actions, required String title}){
+AppBar buildAppBarUtil({List<Widget>? actions, required String title}) {
   return AppBar(
     title: TextUtil(
       text: title,
@@ -673,7 +675,9 @@ AppBar buildAppBarUtil({List<Widget>? actions, required String title}){
       fontWeight: FontWeight.bold,
     ),
     leading: BuildIconButtonUtil(
-      icon: Get.locale.toString() == 'ar' ? IconBroken.Arrow___Right :IconBroken.Arrow___Left,
+      icon: Get.locale.toString() == 'ar'
+          ? IconBroken.Arrow___Right
+          : IconBroken.Arrow___Left,
       size: 24.0,
       color: Get.isDarkMode ? secondLightColor : secondaryColor,
       onClick: () => Get.back(),
@@ -698,7 +702,7 @@ SnackbarController showSnackBar(
 }
 
 void showLoading() => Get.defaultDialog(
-  title: '',
-  backgroundColor: transparent,
-  content: const Center(child: BuildCircularLoadingUtil()),
-);
+      title: '',
+      backgroundColor: transparent,
+      content: const Center(child: BuildCircularLoadingUtil()),
+    );

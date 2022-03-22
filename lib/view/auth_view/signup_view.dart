@@ -109,7 +109,10 @@ class _SignUpViewState extends State<SignUpView> {
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.bold,
                                   )
-                                : const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(whiteColor),),
+                                : const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        whiteColor),
+                                  ),
                             color: mainLightColor,
                             radius: 0.0,
                             size: Size(infinityWidth, 50.h),

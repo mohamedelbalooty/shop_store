@@ -56,7 +56,7 @@ flutter:
 
   assets:
     - assets/images/
-#    - readme_images/
+    - readme_images/
 
   fonts:
      - family: Cairo

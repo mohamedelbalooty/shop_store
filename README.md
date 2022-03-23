@@ -3,7 +3,7 @@
 Shop store is the e-commerce application that show products on some categories like Electronics and Clothes.
 I applied all logic you can occurred on any commerce app such as cart items , filtering by price or product name , local favourite products and detect current location and address when user pay on that.
 
-![App Gif ](readme_images/shop_store_gif.gif)
+[//]: # (![App Gif ]&#40;readme_images/shop_store_gif.gif&#41;)
 
 -----------------------------------------------------------------------------
 
